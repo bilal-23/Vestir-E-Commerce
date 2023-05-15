@@ -6,12 +6,47 @@
   padding: 0;
 }
 :root {
+  --primary: #353535;
 }
 html {
   font-size: 62.5%;
 }
 body {
   font-family: "Poppins", sans-serif;
-  font-size: 1.6rem;
   background-color: #f5f5f5;
+}
+a,
+a:visited,
+a:link {
+  text-decoration: none;
+  color: var(--primary);
+}
+/* Media query manager
+0-600px : Phone
+600-900 : Tablet portrait
+900-1200 : Tablet Landscape
+1800px+ : Big Desktop
+2500px+ : Ultra Big Desktop for zoom purpose
+*/
+
+/* @media only screen and (max-width: 75em) {
+  1200 */
+@media only screen and (max-width: 56.25em) {
+  /*900*/
+  html {
+    font-size: 56.25%; /*1REM = 11.2px*/
+  }
+}
+
+@media screen and (max-width: 37.5em) {
+  /*600*/
+  html {
+    font-size: 48%; /*1REM = 8px*/
+  }
+}
+@media only screen and (min-width: 112.5em) {
+  /*1800*/
+  html {
+    font-size: 75%; /*1REM = 14.4px*/
+  }
 }

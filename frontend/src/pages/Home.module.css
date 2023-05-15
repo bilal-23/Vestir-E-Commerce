@@ -1,0 +1,10 @@
+.main {
+  min-height: 100vh;
+  background-image: url("../assets/banner.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media only screen and (max-width: 56.25em) {
+  /*900*/
+}

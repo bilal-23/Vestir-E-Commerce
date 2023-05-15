@@ -1,12 +1,17 @@
-import styles from './App.module.css';
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-
   return (
-    <main className={styles.main}>
-      <h1 className="text-l text-400">VESTIR.</h1>
-    </main>
-  )
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Home />} />
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;

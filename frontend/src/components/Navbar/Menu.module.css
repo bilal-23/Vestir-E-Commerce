@@ -1,0 +1,50 @@
+.menu {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #333;
+  transition: 0.3s ease all;
+  position: relative;
+  z-index: 101;
+}
+.menu-hamburger {
+  position: relative;
+  width: 20px;
+  height: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-hamburger::before,
+.menu-hamburger::after {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  transition: 0.3s ease all;
+}
+
+.menu-hamburger::before {
+  top: -4px;
+}
+.menu-hamburger::after {
+  top: 4px;
+}
+.menu-hamburger.active::before {
+  transform: rotate(-145deg);
+  width: 15px;
+  top: 0;
+}
+.menu-hamburger.active::after {
+  transform: rotate(145deg);
+  width: 15px;
+  top: 0;
+}
