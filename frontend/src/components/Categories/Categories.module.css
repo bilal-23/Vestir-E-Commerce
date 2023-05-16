@@ -8,11 +8,12 @@
   margin-top: 5rem;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
 }
 .card {
-  height: 40rem;
+  max-width: 40rem;
   aspect-ratio: 1/1;
   position: relative;
 }
@@ -67,5 +68,21 @@
   }
   .card::after {
     background: rgba(51, 51, 51, 0.4);
+  }
+}
+@media only screen and (max-width: 56.25em) {
+  .container {
+    padding: 3rem;
+  }
+}
+
+@media screen and (max-width: 37.5em) {
+  .heading {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 25em) {
+  .btn {
+    padding: 1rem 2rem;
   }
 }
