@@ -4,11 +4,6 @@ import ProductsArray from "../../products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-const images = [
-  `https://ik.imagekit.io/averno2301/Vestir/Products/Men/Channel_Stripe_Long_Sleeve_T-Shirt-1_BDneAhgBq.webp?updatedAt=1684350416505`,
-  `https://ik.imagekit.io/averno2301/Vestir/Products/Men/Channel_Stripe_Long_Sleeve_T-Shirt-2_CXizFrryt.webp?updatedAt=1684350416449`,
-];
-
 const Products = () => {
   return (
     <div className={styles["container"]}>
