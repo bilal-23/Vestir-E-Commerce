@@ -13,53 +13,34 @@
   gap: 2rem;
 }
 .card {
-  max-width: 40rem;
-  aspect-ratio: 1/1;
+  width: 40rem;
+  overflow: hidden;
   position: relative;
 }
 .card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(0.95);
+  transition: 0.3s ease all;
 }
-.card::after {
+.card:hover img {
+  transform: scale(1);
+}
+.card-name {
+  color: var(--blue);
+  position: relative;
+  display: inline;
+}
+.card-name::after {
   position: absolute;
   content: "";
-  top: 0;
+  bottom: 2px;
   left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  transition: 0.3s ease all;
+  width: 100%;
+  height: 1px;
+  background-color: var(--blue);
 }
-.card:hover::after {
-  background: rgba(51, 51, 51, 0.4);
-}
-.btn {
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease all;
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.3);
-  background: var(--primary);
-  color: #fff !important;
-  padding: 1rem 5rem;
-  cursor: pointer;
-}
-.card:hover .btn {
-  transform: translate(-50%, -50%) scale(1.1);
-  opacity: 1;
-  visibility: visible;
-}
-
-.btn:hover {
-  background: #fff;
-  color: var(--primary) !important;
-}
-
 @media (hover: none) {
   .btn {
     transform: translate(-50%, -50%) scale(1);
@@ -73,6 +54,9 @@
 @media only screen and (max-width: 56.25em) {
   .container {
     padding: 3rem;
+  }
+  .text {
+    text-align: center;
   }
 }
 

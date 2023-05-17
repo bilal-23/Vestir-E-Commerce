@@ -7,19 +7,22 @@ const categories = [
     id: uuidv4(),
     name: "For Him",
     image:
-      "https://ik.imagekit.io/averno2301/Vestir/Categories/men-clothes_6xOscgU9t.webp?updatedAt=1684261028991",
+      "https://ik.imagekit.io/averno2301/Vestir/Categories/men_ZhuPEEDd-.webp?updatedAt=1684346517360",
+    link: "/products/?category=men",
   },
   {
     id: uuidv4(),
     name: "For Her",
     image:
-      "https://ik.imagekit.io/averno2301/Vestir/Categories/women-clothes_L21E0SFkx.webp?updatedAt=1684261029045",
+      "https://ik.imagekit.io/averno2301/Vestir/Categories/women_aNq5_KdZb.webp?updatedAt=1684346517365",
+    link: "/products/?category=women",
   },
   {
     id: uuidv4(),
-    name: "For Kids",
+    name: "Accessories",
     image:
-      "https://ik.imagekit.io/averno2301/Vestir/Categories/kid-clothes_QH5CeH2TR.webp?updatedAt=1684261029041",
+      "https://ik.imagekit.io/averno2301/Vestir/Categories/accessories_vc7OvUAYe.webp?updatedAt=1684346517445",
+    link: "/products/?category=accessories",
   },
 ];
 
@@ -50,14 +53,22 @@ interface Props {
 }
 const Category: React.FC<Props> = ({ name, image }) => {
   return (
-    <div className={styles["card"]}>
-      <img src={image} alt={name} className={styles["image"]} loading="eager" />
-      <Link
-        to={`/products/?category=${name}`}
-        className={`${styles["btn"]}  text-xs`}
-      >
-        {name}
-      </Link>
-    </div>
+    <Link
+      to={`/products/?category=${name}`}
+      className={`${styles["btn"]}  text-xs`}
+    >
+      <div className={styles["card"]}>
+        <img
+          src={image}
+          alt={name}
+          className={styles["image"]}
+          loading="eager"
+        />
+        <div className={styles["text"]}>
+          <p className={`text-s text-300`}>Shop</p>
+          <p className={`text-m text-300 ${styles["card-name"]}`}>{name}</p>
+        </div>
+      </div>
+    </Link>
   );
 };
