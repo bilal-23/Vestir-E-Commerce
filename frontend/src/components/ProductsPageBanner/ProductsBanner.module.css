@@ -1,0 +1,49 @@
+.container {
+  width: 100%;
+  height: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-left: 3rem;
+  padding-bottom: 2rem;
+  background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/men-laptop_ZX6BMClsLl.webp?updatedAt=1684348270036");
+  background-position: center;
+  background-size: cover;
+  animation: changeBackground 10s infinite;
+  animation-timing-function: steps(1);
+}
+.container h1 {
+  color: #fff;
+}
+
+@media screen and (max-width: 37.5em) {
+  .container {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/men-mobile_QXu7xJPXBc.webp?updatedAt=1684348269945");
+    animation-name: changeBackgroundMobile;
+  }
+}
+
+@keyframes changeBackground {
+  0% {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/men-laptop_ZX6BMClsLl.webp?updatedAt=1684348270036");
+  }
+  50% {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/women-laptop_5D86Z7pDl3.webp?updatedAt=1684348269896");
+  }
+  100% {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/men-laptop_ZX6BMClsLl.webp?updatedAt=1684348270036");
+  }
+}
+
+@keyframes changeBackgroundMobile {
+  0% {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/men-mobile_QXu7xJPXBc.webp?updatedAt=1684348269945");
+  }
+  50% {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/women-mobile_feTKBAig_.webp?updatedAt=1684348270233");
+  }
+  100% {
+    background-image: url("https://ik.imagekit.io/averno2301/Vestir/Products_Page_Banner/men-mobile_QXu7xJPXBc.webp?updatedAt=1684348269945");
+  }
+}

@@ -37,6 +37,7 @@ const Categories = () => {
               key={category.id}
               name={category.name}
               image={category.image}
+              link={category.link}
             />
           );
         })}
@@ -50,13 +51,11 @@ export default Categories;
 interface Props {
   name: string;
   image: string;
+  link: string;
 }
-const Category: React.FC<Props> = ({ name, image }) => {
+const Category: React.FC<Props> = ({ name, image, link }) => {
   return (
-    <Link
-      to={`/products/?category=${name}`}
-      className={`${styles["btn"]}  text-xs`}
-    >
+    <Link to={link} className={`${styles["btn"]}  text-xs`}>
       <div className={styles["card"]}>
         <img
           src={image}
