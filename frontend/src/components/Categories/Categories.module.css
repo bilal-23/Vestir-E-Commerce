@@ -41,16 +41,7 @@
   height: 1px;
   background-color: var(--blue);
 }
-@media (hover: none) {
-  .btn {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    visibility: visible;
-  }
-  .card::after {
-    background: rgba(51, 51, 51, 0.4);
-  }
-}
+
 @media only screen and (max-width: 56.25em) {
   .container {
     padding: 3rem;

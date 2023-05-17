@@ -1,12 +1,14 @@
 import styles from "./Products.module.css";
+import Products from "../components/Products/Products";
 import ProductsBanner from "../components/ProductsPageBanner/ProductsBanner";
 
-const Products = () => {
+const ProductsPage = () => {
   return (
     <main className={styles["main"]}>
       <ProductsBanner />
+      <Products />
     </main>
   );
 };
 
-export default Products;
+export default ProductsPage;
