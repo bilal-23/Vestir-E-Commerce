@@ -23,14 +23,14 @@ a:link {
   text-decoration: none;
   color: var(--primary);
 }
-.css-ahj2mt-MuiTypography-root {
+.MuiTypography-root {
   font-family: "Poppins", sans-serif !important;
   font-size: 2rem !important;
 }
-.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+.Mui-checked {
   color: var(--blue) !important;
 }
-.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root {
+.MuiCheckbox-root {
   color: var(--blue) !important;
   transform: scale(1.4);
   margin-right: 1rem !important;
