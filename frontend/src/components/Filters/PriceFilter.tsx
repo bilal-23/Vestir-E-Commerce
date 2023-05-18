@@ -10,7 +10,7 @@ function valuetext(value: number) {
 const PriceFilter = () => {
   const [value, setValue] = useState<number[]>([0, 10000]);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (_event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
   return (
