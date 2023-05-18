@@ -1,5 +1,5 @@
 import styles from "./Products.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductsArray from "../../products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -29,19 +29,49 @@ interface ProductProps {
   trending: boolean;
   price: string;
 }
+
 export const Product: React.FC<ProductProps> = ({
   title,
   images,
   trending,
   price,
 }) => {
+  const [isHoverSupported, setIsHoverSupported] = useState(true);
   const [productImage, setProductImage] = useState(images[0]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: none)");
+    setIsHoverSupported(!mediaQuery.matches);
+
+    const handleMediaChange = (event: any) => {
+      setIsHoverSupported(!event.matches);
+    };
+
+    mediaQuery.addListener(handleMediaChange);
+
+    return () => {
+      mediaQuery.removeListener(handleMediaChange);
+    };
+  }, []);
+
+  const handleMouseEnter = () => {
+    if (isHoverSupported) {
+      setProductImage(images[1]);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isHoverSupported) {
+      setProductImage(images[0]);
+    }
+  };
+
   return (
     <div className={styles["product-card"]}>
       <div
         className={styles["product-image"]}
-        onMouseEnter={() => setProductImage(images[1])}
-        onMouseLeave={() => setProductImage(images[0])}
+        onMouseEnter={() => handleMouseEnter()}
+        onMouseLeave={() => handleMouseLeave()}
       >
         <img src={productImage} alt="product" className={styles["card-img"]} />
         {trending && <p className={styles["trending"]}>Trending</p>}

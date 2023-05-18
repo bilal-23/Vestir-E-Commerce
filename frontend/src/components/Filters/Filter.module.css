@@ -1,0 +1,90 @@
+.container {
+  padding: 3rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.filters {
+  display: flex;
+  gap: 2rem;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.expand {
+  width: 3rem !important;
+  height: 3rem !important;
+  font-weight: 300 !important;
+  transition: all 0.3s ease-in-out;
+}
+.active-icon {
+  transform: rotate(180deg);
+}
+.filter-container {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  min-height: 20rem;
+  padding: 3rem 5rem;
+  background-color: #f5f5f5;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+.filter-price {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 2rem;
+}
+.price-slider {
+  font-size: 2rem;
+  color: var(--blue) !important;
+}
+.filter-price p:first-child {
+  width: 10rem;
+  text-align: right;
+}
+.filter-price p:last-child {
+  width: 10rem;
+  text-align: left;
+}
+
+.filter-category {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: flex-start;
+  gap: 5rem !important;
+  flex-wrap: wrap;
+}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+.filter-size div:first-child {
+  display: flex !important;
+  width: 100%;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  gap: 5rem !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(90%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+}
