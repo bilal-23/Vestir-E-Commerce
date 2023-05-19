@@ -8,6 +8,7 @@
 :root {
   --primary: #353535;
   --blue: #384972;
+  --blue-hover: #2c3e5a;
 }
 html {
   font-size: 62.5%;

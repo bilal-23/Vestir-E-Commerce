@@ -4,6 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PriceFilter from "./PriceFilter";
 import CategoryFilter from "./CategroyFilter";
 import SizeFilter from "./SizeFilter";
+import Sort from "./Sort";
 
 const Filters = () => {
   const [openFilter, setOpenFilter] = useState({
@@ -74,7 +75,7 @@ const Filters = () => {
           <Filter filter={openFilter} />
         )}
       </div>
-      <div className={styles["sort"]}></div>
+      <Sort />
     </div>
   );
 };
@@ -94,6 +95,7 @@ const Filter: React.FC<FilterProps> = ({ filter }) => {
       {filter.price && <PriceFilter />}
       {filter.category && <CategoryFilter />}
       {filter.size && <SizeFilter />}
+      <button className={styles["filter-reset-btn"]}>Remove Filters</button>
     </div>
   );
 };

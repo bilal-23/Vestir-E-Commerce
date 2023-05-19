@@ -1,0 +1,25 @@
+.sort {
+  display: flex;
+  gap: 2rem;
+}
+
+.sort-value {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.sort-select {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #000 !important;
+}
+.sort-select option {
+  cursor: pointer;
+}
+@media screen and (hover: none) {
+  .sort-select {
+    font-weight: 400 !important;
+  }
+}

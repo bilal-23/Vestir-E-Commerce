@@ -35,6 +35,33 @@
   left: 0;
   transform: translateY(100%);
   animation: fadeIn 0.3s ease-in-out forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.filter-reset-btn {
+  display: flex;
+  width: 15rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  padding: 1rem 1rem;
+  font-size: 1.6rem;
+  background-color: var(--blue);
+  color: #fff;
+  border: none;
+  outline: none;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease all;
+  margin-top: 2rem;
+}
+.filter-reset-btn:hover {
+  background-color: var(--blue-hover);
+}
+.filter-reset-btn:active {
+  transform: scale(0.9);
 }
 .filter-price {
   width: 100%;
@@ -86,5 +113,20 @@
   to {
     opacity: 1;
     transform: translateY(100%);
+  }
+}
+
+@media screen and (max-width: 50em) {
+  .container {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .filter-size div:first-child {
+    display: flex !important;
+    width: 100%;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    gap: 3rem !important;
   }
 }
