@@ -12,7 +12,7 @@
   gap: 1rem;
 }
 .image-container img {
-  /* width: 30rem; */
+  max-width: 30rem;
   height: auto;
 }
 .first-image {
