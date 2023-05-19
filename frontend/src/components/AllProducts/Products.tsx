@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ProductsArray from "../../products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   return (
@@ -10,6 +11,8 @@ const Products = () => {
       {ProductsArray.map((product) => {
         return (
           <Product
+            id={product._id}
+            key={product._id}
             images={product.images}
             title={product.title}
             trending={product.trending}
@@ -24,6 +27,7 @@ const Products = () => {
 export default Products;
 
 interface ProductProps {
+  id: string;
   images: string[];
   title: string;
   trending: boolean;
@@ -31,6 +35,7 @@ interface ProductProps {
 }
 
 export const Product: React.FC<ProductProps> = ({
+  id,
   title,
   images,
   trending,
@@ -73,15 +78,24 @@ export const Product: React.FC<ProductProps> = ({
         onMouseEnter={() => handleMouseEnter()}
         onMouseLeave={() => handleMouseLeave()}
       >
-        <img src={productImage} alt="product" className={styles["card-img"]} />
+        <Link to={`/product/${id}`}>
+          <img
+            src={productImage}
+            alt="product"
+            className={styles["card-img"]}
+          />
+        </Link>
         {trending && <p className={styles["trending"]}>Trending</p>}
         <FavoriteBorderIcon className={styles["wishlist"]} />
       </div>
+
       <div className={styles["content"]}>
         <button className={styles["add-to-cart"]}>
           Add to Cart <AddShoppingCartIcon />
         </button>
-        <p className={`${styles["title"]} text-500`}>{title}</p>
+        <Link to={`/product/${id}`}>
+          <p className={`${styles["title"]} text-500`}>{title}</p>
+        </Link>
         <p className={`text-xs text-500 ${styles["price"]}`}>Rs. {price}</p>
       </div>
     </div>

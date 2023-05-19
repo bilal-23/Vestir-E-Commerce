@@ -1,5 +1,5 @@
-import styles from "./Products.module.css";
-import Products from "../components/Products/Products";
+import styles from "./AllProducts.module.css";
+import Products from "../components/AllProducts/Products";
 import ProductsBanner from "../components/ProductsPageBanner/ProductsBanner";
 import Filters from "../components/Filters/Filters";
 

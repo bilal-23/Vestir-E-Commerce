@@ -23,8 +23,6 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
     handlerOverlayColor();
   }, [location.pathname]);
 
-  console.log(hovered, location);
-
   const handlerOverlayColor = () => {
     if (location.pathname === "/") {
       return setHovered(0);

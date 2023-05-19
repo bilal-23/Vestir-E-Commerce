@@ -2,11 +2,19 @@
   display: flex;
   gap: 2rem;
 }
-
-.sort-value {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+.sort-select-container {
+  position: relative;
+  flex: 1;
+}
+.expand-icon {
+  position: absolute;
+  width: 3rem !important;
+  height: 3rem !important;
+  font-weight: 300 !important;
+  transition: all 0.3s ease-in-out;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
 }
 .sort-select {
   border: none;
@@ -14,10 +22,13 @@
   background-color: transparent;
   cursor: pointer;
   color: #000 !important;
+  position: relative;
+  appearance: none;
 }
 .sort-select option {
   cursor: pointer;
 }
+
 @media screen and (hover: none) {
   .sort-select {
     font-weight: 400 !important;
