@@ -17,7 +17,11 @@ const Product: React.FC<Props> = ({ data }) => {
           <img src={data.images[0]} alt={data.title} />
           {data.trending && <p className={styles["trending"]}>Trending</p>}
         </div>
-        <img src={data.images[1]} alt={data.title} />
+        <img
+          src={data.images[1]}
+          alt={data.title}
+          className={styles["secondary-image"]}
+        />
       </div>
       <div className={styles["content"]}>
         <p className={`text-m text-300`}>{data.title}</p>
@@ -32,8 +36,8 @@ const Product: React.FC<Props> = ({ data }) => {
           <div className={styles["stars"]}>
             {Array(rating)
               .fill("")
-              .map(() => (
-                <StarIcon className={styles["star"]} />
+              .map((_, index) => (
+                <StarIcon key={index} className={styles["star"]} />
               ))}
           </div>
           <p className={`text-s`}>{data.rating}</p>

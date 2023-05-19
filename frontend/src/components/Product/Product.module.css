@@ -94,7 +94,7 @@
 }
 
 @media screen and (max-width: 21.875em) {
-  .image-container img:last-child {
+  .image-container .secondary-image {
     display: none;
   }
 }
