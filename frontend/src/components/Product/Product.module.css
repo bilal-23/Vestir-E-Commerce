@@ -8,7 +8,7 @@
   display: flex;
   flex: 1;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
 }
 .image-container img {
@@ -32,9 +32,13 @@
 .content {
   width: 100%;
   padding: 2rem;
+  padding-top: 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+.title {
+  text-transform: capitalize;
 }
 .price-container {
   display: flex;
@@ -76,6 +80,9 @@
   .container {
     flex-direction: column;
     gap: 0rem;
+  }
+  .content {
+    padding: 2rem;
   }
   .image-container img {
     max-width: 25rem;

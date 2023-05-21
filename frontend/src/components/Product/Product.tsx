@@ -24,7 +24,7 @@ const Product: React.FC<Props> = ({ data }) => {
         />
       </div>
       <div className={styles["content"]}>
-        <p className={`text-m text-300`}>{data.title}</p>
+        <p className={`text-m text-300 ${styles["title"]}`}>{data.title}</p>
         <div className={styles["price-container"]}>
           <p className={`text-s`}>Rs. {data.price}</p>
           <p className={`text-s ${styles["original-price"]}`}>

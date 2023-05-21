@@ -5,6 +5,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 2px;
+  text-transform: capitalize;
 }
 @media screen and (max-width: 43.175em) {
   .container {
