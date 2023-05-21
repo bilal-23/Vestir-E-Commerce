@@ -50,3 +50,10 @@
 .text-200 {
   font-weight: 200;
 }
+
+@media screen and (max-width: 64em) {
+  .text-s {
+    /* font-size: 3rem; */
+    /* line-height: 4rem; */
+  }
+}

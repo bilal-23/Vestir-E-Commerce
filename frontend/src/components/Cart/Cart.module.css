@@ -1,11 +1,22 @@
 .container {
-  display: flex;
+  display: grid;
   margin-top: 5rem;
+  position: relative;
+  width: 100%;
 }
 .cart-items {
   display: flex;
+  width: 70%;
   flex-direction: column;
   gap: 5rem;
   align-items: center;
-  width: 100%;
+  border-right: 2px solid #000;
+}
+@media screen and (max-width: 64em) {
+  /* 1024px */
+  .cart-items {
+    width: 100%;
+    border-right: none;
+    padding-bottom: 15rem;
+  }
 }

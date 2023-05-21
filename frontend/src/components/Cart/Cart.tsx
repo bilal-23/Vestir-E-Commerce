@@ -1,5 +1,6 @@
 import styles from "./Cart.module.css";
 import CartItem from "./CartItem";
+import CartTotal from "./CartTotal";
 
 const cartItems = [
   {
@@ -24,6 +25,7 @@ const Cart = () => {
           <CartItem key={item.id} id={item.id} quantity={item.quantity} />
         ))}
       </div>
+      <CartTotal />
     </section>
   );
 };

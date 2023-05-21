@@ -46,6 +46,11 @@
   align-items: center;
   gap: 2rem;
 }
+.quantity p {
+  width: 2rem;
+  text-align: center;
+  color: var(--blue);
+}
 .quantity-btn {
   display: flex;
   align-items: center;
@@ -53,18 +58,20 @@
   border: none;
   outline: none;
   background-color: transparent;
+  padding: 0.5rem 0.8rem;
+  /* background-color: var(--blue); */
+  /* background-color: ; */
 }
 .quantity-btn svg {
   color: var(--blue);
-  font-size: 2rem !important;
+  font-size: 2.5rem !important;
   cursor: pointer;
   transition: 0.3s ease all;
 }
-.quantity-btn:hover svg {
-  background-color: var(--blue);
-  color: white;
+.quantity-btn:hover {
+  transform: scale(1.1);
 }
-.quantity-btn:active svg {
+.quantity-btn:active {
   transform: scale(0.9);
 }
 

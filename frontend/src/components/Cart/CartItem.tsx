@@ -41,11 +41,17 @@ const CartItem: React.FC<Props> = ({ id, quantity }) => {
           <p className={`text-s text-300`}>Size: {data.size}</p>
         </div>
         <div className={styles["quantity"]}>
-          <button className={styles["quantity-btn"]}>
+          <button
+            className={styles["quantity-btn"]}
+            onClick={() => setQuantityState((prev) => prev - 1)}
+          >
             <RemoveIcon />
           </button>
           <p className={`text-s text-300`}>{quantityState}</p>
-          <button className={styles["quantity-btn"]}>
+          <button
+            className={styles["quantity-btn"]}
+            onClick={() => setQuantityState((prev) => prev + 1)}
+          >
             <AddIcon />
           </button>
         </div>
