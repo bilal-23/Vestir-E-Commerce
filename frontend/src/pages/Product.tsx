@@ -9,7 +9,6 @@ const Product = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(id);
     const product = products.find((product) => product._id === id);
     if (product) {
       console.log(product);
@@ -18,7 +17,7 @@ const Product = () => {
   });
 
   return (
-    <div className={styles["container"]}>
+    <main className={styles["container"]}>
       {data && (
         <>
           <p className={`${styles["location"]} text-xs text-500`}>
@@ -28,7 +27,7 @@ const Product = () => {
           <ProductComponent data={data} />
         </>
       )}
-    </div>
+    </main>
   );
 };
 

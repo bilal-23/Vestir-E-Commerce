@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  margin-top: 5rem;
+}
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  align-items: center;
+  width: 100%;
+}

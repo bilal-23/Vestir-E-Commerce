@@ -1,6 +1,8 @@
 .nav {
   position: sticky;
   top: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   z-index: 101;
   background-color: #fff;
 }
@@ -27,12 +29,12 @@
 }
 .nav-icons {
   display: flex;
-  gap: 1rem;
-  align-items: flex-start;
+  gap: 2rem;
+  align-items: center;
 }
 .icon {
   cursor: pointer;
-  font-size: 2rem !important;
+  transform: scale(2);
   color: #333;
 }
 .search-item {
@@ -65,6 +67,20 @@
 .search {
   width: 20rem;
   opacity: 1;
+}
+
+.cart-icon {
+  width: 100%;
+}
+.cart-icon-container {
+  position: relative;
+  width: 3rem;
+}
+.cart-quantity {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 @media only screen and (max-width: 56.25em) {
   .navbar {

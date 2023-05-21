@@ -2,6 +2,8 @@ import Menu from "./Menu";
 import styles from "./Navbar.module.css";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+
+import CartIcon from "../../assets/cart.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
@@ -67,13 +69,18 @@ const Navbar = () => {
             />
           </Link>
           <Link to="/cart">
-            <ShoppingBasketIcon
-              className={styles["icon"]}
+            <div
+              className={styles["cart-icon-container"]}
               onClick={() => {
                 if (!menuActive) return;
                 toggleMenu();
               }}
-            />
+            >
+              <span className={`text-xs text-400 ${styles["cart-quantity"]}`}>
+                3
+              </span>
+              <img src={CartIcon} alt="cart" className={styles["cart-icon"]} />
+            </div>
           </Link>
         </div>
       </div>
