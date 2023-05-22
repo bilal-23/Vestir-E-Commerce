@@ -1,8 +1,6 @@
 import Menu from "./Menu";
 import styles from "./Navbar.module.css";
 import PersonIcon from "@mui/icons-material/Person";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-
 import CartIcon from "../../assets/cart.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect, useCallback } from "react";

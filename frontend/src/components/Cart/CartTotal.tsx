@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./CartTotal.module.css";
 
 const CartTotal = () => {
@@ -9,7 +10,9 @@ const CartTotal = () => {
         <span className={`text-s`}>Rs.{formatedPrice}</span>
       </div>
       <div className={styles["checkout-btn-container"]}>
-        <button className={`${styles["checkout-btn"]}`}>Checkout</button>
+        <Link to="/checkout">
+          <button className={`${styles["checkout-btn"]}`}>Checkout</button>
+        </Link>
       </div>
     </div>
   );

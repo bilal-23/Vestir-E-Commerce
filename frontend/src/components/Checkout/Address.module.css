@@ -1,0 +1,28 @@
+.address {
+  border: 2px solid #000;
+  padding: 1rem 3rem;
+  max-width: 50rem;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+.name {
+  display: flex;
+  gap: 1rem;
+}
+.address:hover {
+  background-color: var(--blue-hover);
+  border-color: var(--blue);
+  color: #fff;
+}
+.selected {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+@media (hover: none) {
+  .address:hover {
+    background-color: transparent;
+    border-color: #000;
+    color: #000;
+  }
+}

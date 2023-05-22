@@ -1,0 +1,30 @@
+.shipping-container {
+  border: 2px solid red;
+}
+.heading {
+  display: flex;
+  align-items: center;
+}
+.cart-items {
+  margin-top: 5rem;
+  width: 100%;
+}
+.payment-btn {
+  width: 100%;
+  display: flex;
+  width: 20rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  padding: 1rem 1rem;
+  font-size: 1.6rem;
+  background-color: var(--blue);
+  color: #fff;
+  border: none;
+  outline: none;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease all;
+  margin-top: 5rem;
+}
