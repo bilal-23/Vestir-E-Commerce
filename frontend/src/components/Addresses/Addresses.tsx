@@ -4,28 +4,6 @@ import { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import AddressForm from "./AddressForm";
 
-const address = [
-  {
-    firstName: "John",
-    lastName: "Doe",
-    address: "1234 Main St",
-    city: "Anytown",
-    country: "USA",
-    state: "CA",
-    zip: "123456",
-    phone: "123-456-7890",
-  },
-  {
-    firstName: "John",
-    lastName: "Doe",
-    address: "1234 Main St",
-    city: "Anytown",
-    country: "USA",
-    state: "CA",
-    zip: "123456",
-    phone: "123-456-7890",
-  },
-];
 const Addresses = () => {
   const [openForm, setOpenForm] = useState(false);
   return (
