@@ -12,11 +12,15 @@ const address = {
 };
 interface Props {
   selected?: boolean;
+  classes?: string;
+  children?: React.ReactNode;
 }
-const Address: React.FC<Props> = ({ selected }) => {
+const Address: React.FC<Props> = ({ selected, classes, children }) => {
   return (
     <address
-      className={`${styles["address"]} ${selected && styles["selected"]}`}
+      className={`${styles["address"]} ${
+        selected && styles["selected"]
+      } ${classes} `}
     >
       <div className={`${styles["name"]} text-s text-500`}>
         <span className={styles["first-name"]}>{address.firstName}</span>
@@ -32,6 +36,7 @@ const Address: React.FC<Props> = ({ selected }) => {
       <div className={styles["phone"]}>
         <p className={`text-xs text--400`}>{address.phone}</p>
       </div>
+      {children}
     </address>
   );
 };
