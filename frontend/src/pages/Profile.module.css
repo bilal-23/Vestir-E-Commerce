@@ -1,0 +1,27 @@
+.main {
+  padding: 5rem;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+.cart-icon {
+  width: 100%;
+}
+.cart-icon-container {
+  position: relative;
+  width: 3.5rem;
+}
+.cart-quantity {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 56.25em) {
+  .main {
+    padding: 4rem 3rem;
+  }
+}

@@ -1,0 +1,24 @@
+.container {
+  max-width: 50rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+}
+.profile-group {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: 20rem auto;
+  gap: 1rem;
+  font-size: 2rem;
+  font-weight: 300;
+  border-bottom: 1px solid #ccc;
+}
+.profile-group p:first-child {
+  color: #aaa;
+}
+.profile-group p:last-child {
+  color: var(--blue-hover);
+}

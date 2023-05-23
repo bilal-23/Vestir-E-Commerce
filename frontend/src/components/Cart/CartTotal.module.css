@@ -31,8 +31,10 @@
   background: transparent;
   padding: 1rem 2rem;
   outline: none;
-  color: #000;
-  border: 2px solid #000;
+  color: #fff;
+  border: 2px solid #fff;
+
+  background-color: var(--blue);
   font-size: 1.5rem;
   cursor: pointer;
   width: 30rem;
