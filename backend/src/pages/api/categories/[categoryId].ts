@@ -35,6 +35,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     catch (error) {
         // Close the database connection
         client.connection.close();
-        return res.status(500).json({ message: "Cannot get the categories" });
+        return res.status(500).json({ message: "Cannot get the category" });
     }
 }

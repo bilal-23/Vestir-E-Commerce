@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -27,8 +28,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const db = client.connection.db;
         const products = db.collection('products');
+        const _idObject = new ObjectId(productId as string);
         // Get all the products from the database   
-        const product = await products.findOne({ _id: productId });
+        const product = await products.findOne({ _id: _idObject });
         // Close the database connection
         client.connection.close();
         // Return the products list

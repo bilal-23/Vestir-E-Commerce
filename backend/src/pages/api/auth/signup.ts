@@ -7,10 +7,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // get the user email and password from the request body
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
 
     // Check if the email and password are valid
-    if (!email || !password) {
+    if (!email || !password || !name) {
         return res.status(400).json({ message: 'Bad request' });
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -20,7 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (password.length < 6) {
         return res.status(400).json({ message: 'Bad request', error: 'Password should be at least 6 characters in length' });
     }
-
+    if (name.length < 3) {
+        return res.status(400).json({ message: 'Bad request', error: 'Name should be at least 3 characters in length' });
+    }
     // Connect to the mongodb clinet using mongoose database and throw error response if failed
     const mongoose = require('mongoose');
     let client = null;
@@ -52,11 +54,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const newUser = {
             email: email,
             password: password,
+            name: name
         };
 
         // Insert the new user to the database
         await users.insertOne(newUser);
         // Close the database connection
+        // Create wishlist document in wishlist collection
+        const wishlist = db.collection('wishlist');
+        await wishlist.insertOne({ email: email, wishlist: [] });
+
+        // Create cart document in cart collection
+        const cart = db.collection('cart');
+        await cart.insertOne({ email: email, cart: [] });
+
+        // Crate order document in order collection
+        const orders = db.collection('orders');
+        await orders.insertOne({ email: email, orders: [] });
+
         client.connection.close();
         // Return the result 
         return res.status(200).json({ message: "User created successfully" });
