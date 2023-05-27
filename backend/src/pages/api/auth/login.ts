@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    // Check if it is a GET request
+    // Check if it is a POST request
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });
     }
@@ -47,11 +47,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (user.password !== password) {
                 // Close the database connection
                 client.connection.close();
-                return res.status(400).json({ message: "Incorrect password" });
+                return res.status(401).json({ message: "Incorrect password" });
             }
             // Password is correct, get a jwt token and store the email in the token and _id in the cookie
             const jwt = require('jsonwebtoken');
             const token = jwt.sign({ email: email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+            const refreshToken = jwt.sign({ email: email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+            //set the cookie in response headers
+            res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; Path=/; HttpOnly; Max-Age=${7 * 24 * 60 * 60}; SameSite=None; Secure`);
+            // Close the database connection
             client.connection.close();
             return res.status(200).json({ message: "Login successfully", token: token });
         }
@@ -59,13 +64,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // if user does not exists, cannot log in
             // Close the database connection
             client.connection.close();
-            return res.status(400).json({ message: "User does not exist" });
+            return res.status(404).json({ message: "User does not exist" });
         }
     }
 
     catch (error) {
         // Close the database connection
         client.connection.close();
-        return res.status(500).json({ message: "Cannot register account, please try again later." });
+        return res.status(500).json({ message: "Cannot login, please try again later." });
     }
 }
