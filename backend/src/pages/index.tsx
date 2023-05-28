@@ -25,6 +25,23 @@ export default function Home() {
               <li>/api/products/:productId - get individual product</li>
             </ul>
           </li>
+          <li>
+            <ul>
+              Auth
+              <li>/api/auth/login</li>
+              <li>/api/auth/signup</li>
+              <li>
+                /api/auth/generate-token - get new token from refresh token
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              Categories
+              <li>/api/categories - get all categories</li>
+              <li>/api/categories/:categoryId - get category</li>
+            </ul>
+          </li>
         </ul>
       </main>
     </>
