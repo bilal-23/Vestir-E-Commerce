@@ -20,10 +20,12 @@
     "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
-    "@types/mongoose": "^5.11.97"
+    "@types/mongoose": "^5.11.97",
+    "@types/uuid": "^9.0.1"
   }
 }

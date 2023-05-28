@@ -72,6 +72,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const orders = db.collection('orders');
         await orders.insertOne({ email: email, orders: [] });
 
+        // Create address document in address collection
+        const addresses = db.collection('addresses');
+        await addresses.insertOne({ email: email, addresses: [] });
+
         client.connection.close();
         // Return the result 
         return res.status(200).json({ message: "User created successfully" });
