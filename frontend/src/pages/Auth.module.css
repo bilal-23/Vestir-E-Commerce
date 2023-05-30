@@ -1,0 +1,30 @@
+.main {
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0.5rem 2rem;
+  outline: none;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 20rem;
+  margin: 0 auto;
+  align-items: flex-start;
+  transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 56.25em) {
+  .main {
+    padding: 4rem 3rem;
+  }
+}

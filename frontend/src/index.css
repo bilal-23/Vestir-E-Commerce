@@ -9,6 +9,18 @@
   --primary: #353535;
   --blue: #384972;
   --blue-hover: #2c3e5a;
+  --black: #000000;
+  --dark: #161616;
+  --white: #ffffff;
+  --neutral100: #eaf0f2;
+  --neutral200: #d6dfe4;
+  --neutral300: #c1ccd6;
+  --neutral400: #adb8c9;
+  --neutral500: #98a1bb;
+  --neutral600: #7a8196;
+  --neutral700: #5b6170;
+  --neutral800: #3d404b;
+  --neutral900: #1e2026;
 }
 html {
   font-size: 62.5%;

@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import Checkout from "./pages/Checkout";
 import Wishlist from "./pages/Wishlist";
 import Profile from "./pages/Profile";
+import Auth from "./pages/Auth";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </>
   );
