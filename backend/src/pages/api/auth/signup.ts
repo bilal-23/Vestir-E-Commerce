@@ -1,6 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import Cors, { CorsOptions } from 'cors';
+import { runMiddleware } from '@/utils/middleware';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const corsOptions: any = Cors({
+    origin: '*', // Replace * with the specific origin(s) allowed to access your API
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify the HTTP methods allowed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+});
+// Initialize the CORS middleware
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Check if it is a GET request
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -11,6 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Check if the email and password are valid
     if (!email || !password || !name) {
+        return res.status(400).json({ message: 'Bad request' });
+    }
+    if (typeof email !== 'string' || typeof password !== 'string' || typeof name !== 'string') {
         return res.status(400).json({ message: 'Bad request' });
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         client.connection.close();
         // Return the result 
-        return res.status(200).json({ message: "User created successfully" });
+        return res.status(201).json({ message: "User created successfully" });
     }
 
     catch (error) {
@@ -87,3 +99,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(500).json({ message: "Cannot register account, please try again later." });
     }
 }
+
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res, corsOptions);
+    return handler(req, res);
+}   
