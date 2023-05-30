@@ -2,7 +2,6 @@ import connectDB from '@/utils/connectToDb';
 import verifyToken from '@/utils/verifyToken';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import wishlist from "@/models/wishlist";
 
 // this endpoint have three methods, GET, POST
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
