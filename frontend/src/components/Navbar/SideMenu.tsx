@@ -1,3 +1,4 @@
+import { useAuth } from "../../context/AuthContext";
 import styles from "./SideMenu.module.css";
 import { useState, useEffect } from "react";
 
@@ -16,6 +17,7 @@ const overlayBackgroundColors = [
 ];
 
 const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
+  const { user, logout } = useAuth();
   const [hovered, setHovered] = useState(0);
   const location = useLocation();
 
@@ -97,14 +99,28 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
             </NavLink>
           </li>
           <li className={styles["navlink-4"]}>
-            <NavLink
-              to="/auth"
-              onClick={toggleMenu}
-              onMouseEnter={() => setHovered(3)}
-              onMouseLeave={() => handlerOverlayColor()}
-            >
-              Login
-            </NavLink>
+            {user ? (
+              <NavLink
+                to="/"
+                onClick={() => {
+                  logout();
+                  toggleMenu();
+                }}
+                onMouseEnter={() => setHovered(3)}
+                onMouseLeave={() => handlerOverlayColor()}
+              >
+                Logout
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/auth"
+                onClick={toggleMenu}
+                onMouseEnter={() => setHovered(3)}
+                onMouseLeave={() => handlerOverlayColor()}
+              >
+                Login
+              </NavLink>
+            )}
           </li>
         </ul>
         <div className={styles["socials-container"]}> </div>

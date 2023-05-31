@@ -8,11 +8,15 @@ import Checkout from "./pages/Checkout";
 import Wishlist from "./pages/Wishlist";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
+import { useLoading } from "./context/LoadingContext";
+import Loader from "./components/Loader/Loader";
 
 function App() {
+  const { loading } = useLoading();
   return (
     <>
       <Navbar />
+      {loading && <Loader />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
