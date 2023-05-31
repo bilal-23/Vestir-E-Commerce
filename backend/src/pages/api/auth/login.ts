@@ -67,14 +67,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             }
             // Password is correct, get a jwt token and store the email in the token and _id in the cookie
             const jwt = require('jsonwebtoken');
-            const token = jwt.sign({ email: email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ email: email, _id: user._id, name: user.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
             const refreshToken = jwt.sign({ email: email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
             //set the cookie in response headers
             res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; Path=/; HttpOnly; Max-Age=${7 * 24 * 60 * 60}; SameSite=None; Secure`);
             // Close the database connection
             client.connection.close();
-            return res.status(200).json({ message: "Login successfully", token: token });
+            return res.status(200).json({ message: "Login successfully", token: token, user: { email, name: user.name } });
         }
         else {
             // if user does not exists, cannot log in
