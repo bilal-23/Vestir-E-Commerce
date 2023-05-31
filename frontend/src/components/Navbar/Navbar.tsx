@@ -5,7 +5,6 @@ import CartIcon from "../../assets/cart.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
   const [search, setSearch] = useState(false);
