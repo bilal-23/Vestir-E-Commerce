@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import { useLoading } from "./context/LoadingContext";
 import Loader from "./components/Loader/Loader";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   const { loading } = useLoading();
@@ -21,11 +22,46 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Wishlist />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            <PrivateRoute reverseProtection={true}>
+              <Auth />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

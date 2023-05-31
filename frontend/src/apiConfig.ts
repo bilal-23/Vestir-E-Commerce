@@ -1,5 +1,5 @@
 // const ROOT_URL = "https://vestir-backend.vercel.app"
-const ROOT_URL = "http://localhost:3000";
+const ROOT_URL = import.meta.env.VITE_API_URL
 
 export const API_URLS = {
     login: `${ROOT_URL}/api/auth/login`,

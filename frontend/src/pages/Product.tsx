@@ -11,7 +11,6 @@ const Product = () => {
   useEffect(() => {
     const product = products.find((product) => product._id === id);
     if (product) {
-      console.log(product);
       setData(product);
     }
   });

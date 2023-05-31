@@ -3,7 +3,7 @@ import { hashPassword } from "../helpers/auth";
 import { API_URLS } from "../apiConfig";
 import { toast } from "react-toastify";
 import { useAuth as useAuthContext } from "../context/AuthContext";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoading } from "../context/LoadingContext";
 
 
@@ -11,6 +11,8 @@ export const useAuth = () => {
     const { login: loginHandler } = useAuthContext();
     const { setLoading } = useLoading();
     const navigate = useNavigate();
+    const location = useLocation();
+    const redirectedPath = location.state?.from || "/";
 
     const login = async (email: string, password: string) => {
         const payload = {
@@ -23,11 +25,9 @@ export const useAuth = () => {
             if (response.status === 200) {
                 toast.success("Login successful!", { toastId: "login-success" });
                 const data = response.data;
-                console.log(data);
                 loginHandler(data.token, data.user);
-                navigate("/", { replace: true })
+                navigate(redirectedPath, { replace: true })
             }
-            console.log(response.data);
         }
         catch (err: any) {
             toast.error(err.response.data.message);

@@ -39,6 +39,8 @@ export const AuthProvider: React.FC<ContextProviderProps> = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
   const handleLogout = () => {
+    Cookies.remove("token");
+    localStorage.removeItem("user");
     setAuth({ user: null, token: null });
   };
 
