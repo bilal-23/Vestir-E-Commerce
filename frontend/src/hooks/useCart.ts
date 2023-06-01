@@ -9,7 +9,11 @@ export const useCart = () => {
     const { addToCart, decreaseQuantity, removeFromCart } = useUserData();
     const header = { headers: { Authorization: `${token}` } }
 
+
     const addItemToCart = async (productId: string) => {
+        if (!token) {
+            return toast.error("Please login to add item to cart!");
+        }
         try {
             const res = await axios.post(API_URLS.addToCart, { productId }, header);
 
@@ -24,6 +28,9 @@ export const useCart = () => {
     }
 
     const decreaseItemQuantity = async (productId: string) => {
+        if (!token) {
+            return toast.error("Please login to remove item from cart!");
+        }
         try {
             const res = await axios.delete(API_URLS.decreaseQuantity(productId), header);
             if (res.status === 200) {
@@ -37,6 +44,9 @@ export const useCart = () => {
     }
 
     const removeItemFromCart = async (productId: string) => {
+        if (!token) {
+            return toast.error("Please login to remove item from cart!");
+        }
         try {
             const res = await axios.delete(API_URLS.removeCartItem(productId), header);
             if (res.status === 200) {
