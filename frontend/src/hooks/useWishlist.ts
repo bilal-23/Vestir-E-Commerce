@@ -9,6 +9,10 @@ export const useWishlist = () => {
     const { token } = useAuth();
 
     const addItemToWishlist = async (productId: string) => {
+        if (!token) {
+            toast.error("Please login to add item to wishlist", { toastId: "errorAddWishlist" });
+            return;
+        }
         // Make Api call to add item to wishlist
         try {
             const res = await axios.post(API_URLS.wishlist, { productId }, {
@@ -27,6 +31,10 @@ export const useWishlist = () => {
     }
 
     const removeItemFromWishlist = async (productId: string) => {
+        if (!token) {
+            toast.error("Please login to add item to wishlist", { toastId: "errorAddWishlist" });
+            return;
+        }
         // Make Api call to remove item from wishlist
         try {
             const res = await axios.delete(API_URLS.deleteFromWishlist(productId), {
