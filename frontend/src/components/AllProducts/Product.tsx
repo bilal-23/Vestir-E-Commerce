@@ -73,7 +73,12 @@ export const Product: React.FC<ProductProps> = ({
   };
 
   const handleAddToCart = async () => {
-    addItemToCart(id);
+    if (isLoading) return;
+    setIsLoading(true);
+    if (!isInCart) {
+      await addItemToCart(id);
+      setIsLoading(false);
+    }
   };
 
   return (
