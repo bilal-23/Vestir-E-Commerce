@@ -89,10 +89,10 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
   };
 
   const addToWishlist = (productId: string) => {
-    console.log(productId);
+    setWishlist((prev) => [...prev, productId]);
   };
   const removeFromWishlist = (productId: string) => {
-    console.log(productId);
+    setWishlist((prev) => prev.filter((id) => id !== productId));
   };
   const clearWishlist = () => {};
 

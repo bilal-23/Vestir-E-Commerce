@@ -31,7 +31,7 @@ function Toater() {
       closeOnClick
       rtl={false}
       className={"toast-container"}
-      limit={2}
+      limit={3}
     />
   );
 }

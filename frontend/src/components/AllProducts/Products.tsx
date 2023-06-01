@@ -5,6 +5,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Link } from "react-router-dom";
 import { Product as ProductType } from "../../types/Product";
 import { useUserData } from "../../context/UserData";
+import { useWishlist } from "../../hooks/useWishlist";
 
 interface Props {
   products: ProductType[] | null;
@@ -48,9 +49,11 @@ export const Product: React.FC<ProductProps> = ({
   price,
 }) => {
   const { wishlist } = useUserData();
-  const [isWishlisted] = useState(() => wishlist?.includes(id));
   const [isHoverSupported, setIsHoverSupported] = useState(true);
   const [productImage, setProductImage] = useState(images[0]);
+  const { addItemToWishlist, removeItemFromWishlist } = useWishlist();
+  const [isLoading, setIsLoading] = useState(false);
+  const isWishlisted = wishlist?.includes(id);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(hover: none)");
@@ -79,6 +82,18 @@ export const Product: React.FC<ProductProps> = ({
     }
   };
 
+  const handleWishlistClick = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    if (isWishlisted) {
+      await removeItemFromWishlist(id);
+      setIsLoading(false);
+    } else {
+      await addItemToWishlist(id);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className={styles["product-card"]}>
       <div
@@ -95,6 +110,7 @@ export const Product: React.FC<ProductProps> = ({
         </Link>
         {trending && <p className={styles["trending"]}>Trending</p>}
         <FavoriteBorderIcon
+          onClick={handleWishlistClick}
           className={styles["wishlist"]}
           sx={{ color: `${isWishlisted ? "red" : "black"}` }}
         />

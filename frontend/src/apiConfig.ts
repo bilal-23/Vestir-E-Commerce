@@ -10,6 +10,7 @@ export const API_URLS = {
     getCategories: `${ROOT_URL}/api/categories`,
 
     wishlist: `${ROOT_URL}/api/wishlist`,
+    deleteFromWishlist: (productId: string) => `${ROOT_URL}/api/wishlist/delete/${productId}`,
 
     getCart: `${ROOT_URL}/api/cart`,
 }

@@ -1,4 +1,4 @@
-import styles from "./Cart.module.css";
+import styles from "./Wishlist.module.css";
 import Products from "../components/AllProducts/Products";
 import { useData } from "../context/DataContext";
 import { useUserData } from "../context/UserData";
@@ -26,7 +26,13 @@ const Wishlist = () => {
       <header className={styles["heading"]}>
         <h1 className={`text-l text-300`}>Wishlist - {wishlist?.length}</h1>
       </header>
-      <Products products={wishlistProducts} />
+      {wishlistProducts?.length !== 0 ? (
+        <Products products={wishlistProducts} />
+      ) : (
+        <p className={`${styles["empty"]} text-s text-300`}>
+          Wishlist is Empty
+        </p>
+      )}
     </main>
   );
 };
