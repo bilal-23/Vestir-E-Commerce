@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "./CartTotal.module.css";
+import { useUserData } from "../../context/UserData";
 
 const CartTotal = () => {
-  const formatedPrice = new Intl.NumberFormat("en-US", {}).format(15000);
+  const { cartTotal } = useUserData();
+  const formatedPrice = new Intl.NumberFormat("en-US", {}).format(
+    cartTotal || 0
+  );
   return (
     <div className={styles["cart-total-container"]}>
       <div className={styles["subtotal"]}>

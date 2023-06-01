@@ -57,9 +57,6 @@ export const DataContextProvider: React.FC<ContextProviderProps> = ({
     setLoading(false);
   };
 
-  console.log(products);
-  console.log(categories);
-
   const dataContext = {
     products,
     categories,

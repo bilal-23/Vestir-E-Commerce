@@ -1,3 +1,4 @@
+import { useUserData } from "../../context/UserData";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./SideMenu.module.css";
 import { useState, useEffect } from "react";
@@ -20,6 +21,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
   const { user, logout } = useAuth();
   const [hovered, setHovered] = useState(0);
   const location = useLocation();
+  const { resetUserDataContext } = useUserData();
 
   useEffect(() => {
     handlerOverlayColor();
@@ -38,6 +40,11 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
     if (location.pathname === "/auth") {
       return setHovered(3);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    resetUserDataContext();
   };
 
   return (
@@ -103,7 +110,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
               <NavLink
                 to="/"
                 onClick={() => {
-                  logout();
+                  handleLogout();
                   toggleMenu();
                 }}
                 onMouseEnter={() => setHovered(3)}
@@ -117,6 +124,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
                 onClick={toggleMenu}
                 onMouseEnter={() => setHovered(3)}
                 onMouseLeave={() => handlerOverlayColor()}
+                state={{ from: location }}
               >
                 Login
               </NavLink>

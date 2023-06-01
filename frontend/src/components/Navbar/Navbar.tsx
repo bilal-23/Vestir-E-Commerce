@@ -5,10 +5,12 @@ import CartIcon from "../../assets/cart.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useUserData } from "../../context/UserData";
 
 const Navbar = () => {
   const [search, setSearch] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
+  const { cartItemsCount } = useUserData();
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -75,7 +77,7 @@ const Navbar = () => {
               }}
             >
               <span className={`text-xs text-400 ${styles["cart-quantity"]}`}>
-                3
+                {cartItemsCount}
               </span>
               <img src={CartIcon} alt="cart" className={styles["cart-icon"]} />
             </div>

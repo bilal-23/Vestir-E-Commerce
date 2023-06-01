@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Link } from "react-router-dom";
-import { useData } from "../../context/DataContext";
+import { Product as ProductType } from "../../types/Product";
+import { useUserData } from "../../context/UserData";
 
-const Products = () => {
-  const { products } = useData();
+interface Props {
+  products: ProductType[] | null;
+}
+
+const Products: React.FC<Props> = ({ products }) => {
   return (
     <div className={styles["container"]}>
       {products &&
@@ -43,6 +47,8 @@ export const Product: React.FC<ProductProps> = ({
   trending,
   price,
 }) => {
+  const { wishlist } = useUserData();
+  const [isWishlisted] = useState(() => wishlist?.includes(id));
   const [isHoverSupported, setIsHoverSupported] = useState(true);
   const [productImage, setProductImage] = useState(images[0]);
 
@@ -88,7 +94,10 @@ export const Product: React.FC<ProductProps> = ({
           />
         </Link>
         {trending && <p className={styles["trending"]}>Trending</p>}
-        <FavoriteBorderIcon className={styles["wishlist"]} />
+        <FavoriteBorderIcon
+          className={styles["wishlist"]}
+          sx={{ color: `${isWishlisted ? "red" : "black"}` }}
+        />
       </div>
 
       <div className={styles["content"]}>

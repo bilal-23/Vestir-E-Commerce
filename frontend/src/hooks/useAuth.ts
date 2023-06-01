@@ -26,6 +26,7 @@ export const useAuth = () => {
                 toast.success("Login successful!", { toastId: "login-success" });
                 const data = response.data;
                 loginHandler(data.token, data.user);
+                axios.defaults.headers.common["authorization"] = `${data.token}`;
                 navigate(redirectedPath, { replace: true })
             }
         }

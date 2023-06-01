@@ -83,3 +83,18 @@ a:link {
     font-size: 75%; /*1REM = 14.4px*/
   }
 }
+@media screen and (max-width: 480px) {
+  .Toastify__toast {
+    margin-bottom: 1rem !important;
+    border-radius: 4px !important;
+  }
+  .Toastify__toast-container {
+    max-width: 320px !important;
+    left: auto;
+    right: 0;
+  }
+  .Toastify__toast-container--top-right {
+    top: 1em !important;
+    right: 1em !important;
+  }
+}

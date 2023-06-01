@@ -1,5 +1,5 @@
-import { Category } from "@/types/Category";
-import { Product } from "@/types/Product";
+import { Category } from "../types/Category";
+import { Product } from "../types/Product";
 
 export interface ContextProviderProps {
     children: React.ReactNode;
@@ -35,4 +35,23 @@ export interface LoadingContextInterface {
 export interface DataContextInterface {
     products: Product[] | null;
     categories: Category[] | null;
+}
+
+
+// UserDataContext
+export interface UserDataContextInterface {
+    wishlist: string[] | null;
+    cartItems: CartItem[] | null
+    cartTotal: number | null;
+    cartItemsCount: number | null;
+
+    addToWishlist: (productId: string) => void;
+    removeFromWishlist: (productId: string) => void;
+    clearWishlist: () => void;
+
+    addToCart: (productId: string) => void;
+    removeFromCart: (productId: string) => void;
+    clearCart: () => void;
+
+    resetUserDataContext: () => void;
 }

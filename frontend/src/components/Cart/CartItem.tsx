@@ -1,10 +1,9 @@
-import { Product } from "@/types/Product";
-import products from "../../products";
 import { useState, useEffect } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import styles from "./CartItem.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useData } from "../../context/DataContext";
 
 interface Props {
   id: string;
@@ -12,15 +11,15 @@ interface Props {
 }
 
 const CartItem: React.FC<Props> = ({ id, quantity }) => {
-  const [data, setData] = useState<Product | null>(null);
-  const [quantityState, setQuantityState] = useState<number>(quantity);
+  const [data, setData] = useState<any>(null);
+  const { products } = useData();
 
   useEffect(() => {
-    const product = products.find((product) => product._id === id);
+    const product = products?.find((product) => product._id === id);
     if (product) {
       setData(product);
     }
-  });
+  }, []);
 
   if (!data) return null;
 
@@ -41,17 +40,11 @@ const CartItem: React.FC<Props> = ({ id, quantity }) => {
           <p className={`text-s text-300`}>Size: {data.size}</p>
         </div>
         <div className={styles["quantity"]}>
-          <button
-            className={styles["quantity-btn"]}
-            onClick={() => setQuantityState((prev) => prev - 1)}
-          >
+          <button className={styles["quantity-btn"]}>
             <RemoveIcon />
           </button>
-          <p className={`text-s text-300`}>{quantityState}</p>
-          <button
-            className={styles["quantity-btn"]}
-            onClick={() => setQuantityState((prev) => prev + 1)}
-          >
+          <p className={`text-s text-300`}>{quantity}</p>
+          <button className={styles["quantity-btn"]}>
             <AddIcon />
           </button>
         </div>

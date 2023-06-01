@@ -5,6 +5,7 @@ import {
   AuthState,
 } from "./ContextTypes";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const AuthContext = createContext<AuthContextInterface>({
   user: null,
@@ -38,7 +39,9 @@ export const AuthProvider: React.FC<ContextProviderProps> = ({ children }) => {
     Cookies.set("token", token, { expires: 1 / 24 }); // 1 hour
     localStorage.setItem("user", JSON.stringify(user));
   };
+
   const handleLogout = () => {
+    axios.defaults.headers.common["authorization"] = ``;
     Cookies.remove("token");
     localStorage.removeItem("user");
     setAuth({ user: null, token: null });
@@ -50,6 +53,7 @@ export const AuthProvider: React.FC<ContextProviderProps> = ({ children }) => {
     login: handleLogin,
     logout: handleLogout,
   };
+
   return (
     <AuthContext.Provider value={authContext}>{children}</AuthContext.Provider>
   );

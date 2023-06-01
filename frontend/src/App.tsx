@@ -14,6 +14,7 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   const { loading } = useLoading();
+
   return (
     <>
       <Navbar />

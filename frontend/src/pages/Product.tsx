@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import products from "../products";
 import styles from "./Product.module.css";
 import ProductComponent from "../components/Product/Product";
 import { Product as ProductType } from "@/types/Product";
 import { useParams } from "react-router-dom";
+import { useData } from "../context/DataContext";
 const Product = () => {
+  const { products } = useData();
   const [data, setData] = useState<ProductType | null>(null);
   const { id } = useParams();
 
   useEffect(() => {
-    const product = products.find((product) => product._id === id);
+    const product = products?.find((product) => product._id === id);
     if (product) {
       setData(product);
     }

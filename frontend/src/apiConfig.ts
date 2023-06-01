@@ -8,4 +8,8 @@ export const API_URLS = {
     getProducts: `${ROOT_URL}/api/products`,
 
     getCategories: `${ROOT_URL}/api/categories`,
+
+    wishlist: `${ROOT_URL}/api/wishlist`,
+
+    getCart: `${ROOT_URL}/api/cart`,
 }
