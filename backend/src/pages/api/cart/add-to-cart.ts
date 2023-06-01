@@ -5,7 +5,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import Cors from "cors";
 import { runMiddleware } from "@/utils/middleware";
-import { Product } from '@/types/db';
 
 
 interface CartProduct {

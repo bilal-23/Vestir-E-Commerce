@@ -2,14 +2,22 @@ import connectDB from '@/utils/connectToDb';
 import verifyToken from '@/utils/verifyToken';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import Cors from "cors";
+import { runMiddleware } from "@/utils/middleware";
+
 
 interface CartProduct { _id: string, quantity: number, price: number }
 interface Cart {
     email: string;
     cart: CartProduct[];
 }
-// DELETE ITEM FROM CART 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const corsOptions: any = Cors({
+    origin: "*", // Replace * with the specific origin(s) allowed to access your API
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify the HTTP methods allowed
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+});
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check if method is not get 
     if (req.method !== 'DELETE') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -29,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Get product id from the query 
     const [productId, deleteAll] = req.query.slug as string[];
-    console.log(productId, deleteAll);
+
     // If product id is not provided, return error response
     if (!productId) {
         return res.status(400).json({ message: "Product id is required" });
@@ -89,9 +97,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
         return res.status(404).json({ message: "Product not found in cart" });
     }
-    // if the quantity is 0, remove the product from the cart
+}
 
-
-
-
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res, corsOptions);
+    return handler(req, res);
 }
