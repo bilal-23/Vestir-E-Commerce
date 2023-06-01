@@ -67,7 +67,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             }
             // Password is correct, get a jwt token and store the email in the token and _id in the cookie
             const jwt = require('jsonwebtoken');
-            const token = jwt.sign({ email: email, _id: user._id, name: user.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ email: email, _id: user._id, name: user.name }, process.env.JWT_SECRET, { expiresIn: '72h' });
 
             const refreshToken = jwt.sign({ email: email, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
             //set the cookie in response headers

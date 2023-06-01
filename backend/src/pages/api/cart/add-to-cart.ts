@@ -3,13 +3,29 @@ import verifyToken from '@/utils/verifyToken';
 import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-interface CartProduct { _id: string, quantity: number, price: number }
-interface Cart {
-    email: string;
-    cart: CartProduct[];
+import Cors from "cors";
+import { runMiddleware } from "@/utils/middleware";
+import { Product } from '@/types/db';
+
+
+interface CartProduct {
+    _id: string,
+    quantity: number,
+    price: number,
+    images: string[],
+    title: string,
+    size: string,
+    originalPrice: number,
 }
-// GET CART 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+
+const corsOptions: any = Cors({
+    origin: "*", // Replace * with the specific origin(s) allowed to access your API
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify the HTTP methods allowed
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+});
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check if method is not get 
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -59,23 +75,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!product) {
         return res.status(404).json({ message: "Product not found" });
     }
-    const productsInCart = cartData.cart;
+    const productsInCart = cartData.cart as CartProduct[];
     // Check if product is already in the cart
     const productIndex = productsInCart.findIndex((item: CartProduct) => item._id === productId);
     // If product is already in the cart, increase the quantity by 1
     if (productIndex !== -1) {
         productsInCart[productIndex].quantity += 1;
+        // Update the cart in the database
+        await cart.updateOne({ email }, { $set: { cart: productsInCart } });
+        // Return the products list
+        return res.status(200).json({ message: "Product quantity increased" });
     }
     // If product is not in the cart, add it to the cart
     else {
-        productsInCart.push({ _id: productId, quantity: 1, price: product.price });
+        productsInCart.push({
+            _id: productId,
+            quantity: 1,
+            price: product.price,
+            originalPrice: product.original_price,
+            images: product.images,
+            title: product.title,
+            size: product.size,
+        });
+        // Update the cart in the database
+        await cart.updateOne({ email }, { $set: { cart: productsInCart } });
+        // Return the products list
+        return res.status(200).json({ message: "Product added to cart" });
     }
-    // Update the cart in the database
-    await cart.updateOne({ email }, { $set: { cart: productsInCart } });
 
-    // Close the database connection
-    client.connection.close();
-    // Return the products list
-    return res.status(200).json({ message: "Product added to cart" });
 
+}
+
+
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res, corsOptions);
+    return handler(req, res);
 }

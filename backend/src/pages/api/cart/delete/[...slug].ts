@@ -28,7 +28,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const email = tokenData.email;
 
     // Get product id from the query 
-    const { productId } = req.query;
+    const [productId, deleteAll] = req.query.slug as string[];
+    console.log(productId, deleteAll);
     // If product id is not provided, return error response
     if (!productId) {
         return res.status(400).json({ message: "Product id is required" });
@@ -64,21 +65,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const productIndex = productsInCart.findIndex((item: CartProduct) => item._id === productId);
     // If product is already in the cart, increase the decrease by 1
     if (productIndex !== -1) {
+        // REMOVE PRODUCT FROM CART
+        if (Boolean(deleteAll)) {
+            productsInCart.splice(productIndex, 1);
+            // Update the cart in the database
+            await cart.updateOne({ email }, { $set: { cart: productsInCart } });
+            return res.status(200).json({ message: "Product removed from cart" });
+        }
+
+        // DECEREASE PRODUCT QUANTITY
         productsInCart[productIndex].quantity -= 1;
+
+        if (productsInCart[productIndex].quantity === 0) {
+            productsInCart.splice(productIndex, 1);
+            // Update the cart in the database
+            await cart.updateOne({ email }, { $set: { cart: productsInCart } });
+            return res.status(200).json({ message: "Product removed from cart" });
+        }
+
+        // Update the cart in the database
+        await cart.updateOne({ email }, { $set: { cart: productsInCart } });
+        return res.status(200).json({ message: "Product quantity decreased" });
     } else {
         return res.status(404).json({ message: "Product not found in cart" });
     }
     // if the quantity is 0, remove the product from the cart
-    if (productsInCart[productIndex].quantity === 0) {
-        productsInCart.splice(productIndex, 1);
-    }
 
-    // Update the cart in the database
-    await cart.updateOne({ email }, { $set: { cart: productsInCart } });
 
-    // Close the database connection
-    client.connection.close();
-    // Return the products list
-    return res.status(200).json({ message: "Product removed from cart" });
+
 
 }

@@ -3,7 +3,7 @@ export interface User {
     email: string;
     password: string;
 }
-interface Product {
+export interface Product {
     _id: string;
     images: string[];
     category: string;
