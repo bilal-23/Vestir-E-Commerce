@@ -2,12 +2,17 @@ import connectDB from "@/utils/connectToDb";
 import verifyToken from "@/utils/verifyToken";
 import { ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
+import Cors from "cors";
+import { runMiddleware } from "@/utils/middleware";
 
-// this endpoint have  method DELETE
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+const corsOptions: any = Cors({
+  origin: "*", // Replace * with the specific origin(s) allowed to access your API
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify the HTTP methods allowed
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+});
+
+// this endpoint have three methods, GET, POST
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   // check if method is not get post or delete
   if (req.method !== "DELETE") {
     return res.status(405).json({ message: "Method not allowed" });
@@ -41,11 +46,14 @@ export default async function handler(
   } else {
     // Remove the product from the wishlist
     await wishlist.replaceOne({ email }, { email, wishlist: [] });
-    // Close the database connection
-    client.connection.close();
     // Return the products list
     return res
       .status(200)
       .json({ message: "Product removed from the wishlist" });
   }
+}
+
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+  await runMiddleware(req, res, corsOptions);
+  return handler(req, res);
 }
