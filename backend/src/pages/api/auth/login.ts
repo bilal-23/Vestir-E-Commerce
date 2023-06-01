@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import Cors, { CorsOptions } from 'cors';
+import Cors from 'cors';
 import { runMiddleware } from '@/utils/middleware';
 import { verifyPassword } from '@/utils/auth';
 

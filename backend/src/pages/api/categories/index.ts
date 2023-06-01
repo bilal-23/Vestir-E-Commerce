@@ -1,6 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import Cors from 'cors';
+import { runMiddleware } from '@/utils/middleware'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const corsOptions: any = Cors({
+    origin: '*', // Replace * with the specific origin(s) allowed to access your API
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify the HTTP methods allowed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+});
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Check if it is a GET request
     if (req.method !== 'GET') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -34,3 +42,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(500).json({ message: "Cannot get the categories" });
     }
 }
+
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res, corsOptions);
+    return handler(req, res);
+}   
