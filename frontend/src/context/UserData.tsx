@@ -6,6 +6,8 @@ import { API_URLS } from "../apiConfig";
 import { useAuth } from "./AuthContext";
 import { toast } from "react-toastify";
 import { useLoading } from "./LoadingContext";
+import { CartItem, Cart as CartType } from "../types/Cart";
+import { useData } from "./DataContext";
 
 const UserDataContext = createContext<UserDataContextInterface>({
   wishlist: [] || null,
@@ -20,7 +22,7 @@ const UserDataContext = createContext<UserDataContextInterface>({
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
-
+  decreaseQuantity: () => {},
   resetUserDataContext: () => {},
 });
 
@@ -29,10 +31,9 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
 }) => {
   const { token } = useAuth();
   const { setLoading } = useLoading();
+  const { products } = useData();
   const [wishlist, setWishlist] = useState<string[]>([]);
-  const [cart, setCart] = useState(
-    { items: [] || null, total: 0, itemsCount: 0 } || null
-  );
+  const [cart, setCart] = useState<CartType | null>(null);
 
   useEffect(() => {
     async function init() {
@@ -97,11 +98,87 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
   const clearWishlist = () => {};
 
   const addToCart = (productId: string) => {
-    console.log(productId);
+    if (cart === null) return;
+    // Find the product in products
+    const product = products?.find((p) => p._id === productId);
+
+    if (product) {
+      // Check if product is already in cart
+      const itemIndex = cart.items.findIndex((item) => item._id === productId);
+      if (itemIndex !== -1) {
+        // Increase the quantity of the item
+        let items = cart?.items as CartItem[];
+        items[itemIndex].quantity += 1;
+        // Increase the total and itemsCount
+        const total = cart.total + +product.price;
+        const itemsCount = cart.itemsCount + 1;
+        setCart({ items, total, itemsCount });
+      } else {
+        const items: CartItem[] = [
+          ...cart.items,
+          {
+            _id: product._id,
+            title: product.title,
+            price: +product.price,
+            quantity: 1,
+            originalPrice: +product.original_price,
+            images: product.images,
+            size: product.size,
+          },
+        ];
+        // Increase the total and itemsCount
+        const total = cart.total + +product.price;
+        const itemsCount = cart.itemsCount + 1;
+        setCart({ items, total, itemsCount });
+      }
+    }
   };
+
+  const decreaseQuantity = (productId: string) => {
+    if (cart === null) return;
+    // Find the product in products
+    const product = products?.find((p) => p._id === productId);
+
+    if (product) {
+      // Check if product is already in cart
+      const itemIndex = cart.items.findIndex((item) => item._id === productId);
+      if (itemIndex !== -1) {
+        // Decrease the quantity of the item
+        let items = cart?.items as CartItem[];
+        items[itemIndex].quantity -= 1;
+        // Decrease the total and itemsCount
+        const total = cart.total - +product.price;
+        const itemsCount = cart.itemsCount - 1;
+
+        if (items[itemIndex].quantity === 0) {
+          items.splice(itemIndex, 1);
+        }
+
+        setCart({ items, total, itemsCount });
+      }
+    }
+  };
+
   const removeFromCart = (productId: string) => {
-    console.log(productId);
+    if (cart === null) return;
+    // Find the product in products
+    const product = products?.find((p) => p._id === productId);
+    if (product) {
+      // Get the index in cart items
+      const itemIndex = cart.items.findIndex((item) => item._id === productId);
+      if (itemIndex !== -1) {
+        // Decrease the total and itemsCount
+        const total =
+          cart.total - +product.price * cart.items[itemIndex].quantity;
+        const itemsCount = cart.itemsCount - cart.items[itemIndex].quantity;
+        // Remoev the item from cart
+        let items = cart?.items as CartItem[];
+        items.splice(itemIndex, 1);
+        setCart({ items, total, itemsCount });
+      }
+    }
   };
+
   const clearCart = () => {};
 
   const resetContext = () => {
@@ -111,13 +188,14 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
 
   const userDataContext = {
     wishlist,
-    cartItems: cart?.items,
-    cartTotal: cart?.total,
-    cartItemsCount: cart?.itemsCount,
+    cartItems: cart?.items || null,
+    cartTotal: cart?.total || 0,
+    cartItemsCount: cart?.itemsCount || 0,
     addToWishlist,
     removeFromWishlist,
     clearWishlist,
     addToCart,
+    decreaseQuantity,
     removeFromCart,
     clearCart,
     resetUserDataContext: resetContext,

@@ -10,7 +10,16 @@ const Cart = () => {
       <div className={styles["cart-items"]}>
         {cartItems &&
           cartItems.map((item) => (
-            <CartItem key={item._id} id={item._id} quantity={item.quantity} />
+            <CartItem
+              key={item._id}
+              id={item._id}
+              quantity={item.quantity}
+              image={item.images[0]}
+              original_price={item.originalPrice}
+              price={item.price}
+              size={item.size}
+              title={item.title}
+            />
           ))}
       </div>
       <CartTotal />

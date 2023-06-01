@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Product as ProductType } from "../../types/Product";
 import { useUserData } from "../../context/UserData";
 import { useWishlist } from "../../hooks/useWishlist";
+import { useCart } from "../../hooks/useCart";
 
 interface Props {
   products: ProductType[] | null;
@@ -51,8 +52,9 @@ export const Product: React.FC<ProductProps> = ({
   const { wishlist } = useUserData();
   const [isHoverSupported, setIsHoverSupported] = useState(true);
   const [productImage, setProductImage] = useState(images[0]);
-  const { addItemToWishlist, removeItemFromWishlist } = useWishlist();
   const [isLoading, setIsLoading] = useState(false);
+  const { addItemToWishlist, removeItemFromWishlist } = useWishlist();
+  const { addItemToCart } = useCart();
   const isWishlisted = wishlist?.includes(id);
 
   useEffect(() => {
@@ -94,6 +96,10 @@ export const Product: React.FC<ProductProps> = ({
     }
   };
 
+  const handleAddToCart = async () => {
+    addItemToCart(id);
+  };
+
   return (
     <div className={styles["product-card"]}>
       <div
@@ -117,7 +123,7 @@ export const Product: React.FC<ProductProps> = ({
       </div>
 
       <div className={styles["content"]}>
-        <button className={styles["add-to-cart"]}>
+        <button className={styles["add-to-cart"]} onClick={handleAddToCart}>
           Add to Cart <AddShoppingCartIcon />
         </button>
         <Link to={`/product/${id}`}>

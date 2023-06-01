@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<ContextProviderProps> = ({ children }) => {
   ) => {
     setAuth({ user: user, token });
     // Set cookie valid for 1 hour
-    Cookies.set("token", token, { expires: 1 / 24 }); // 1 hour
+    Cookies.set("token", token, { expires: 24 * 3 }); // 72 hour
     localStorage.setItem("user", JSON.stringify(user));
   };
 

@@ -1,3 +1,4 @@
+import { CartItem } from "../types/Cart";
 import { Category } from "../types/Category";
 import { Product } from "../types/Product";
 
@@ -51,6 +52,7 @@ export interface UserDataContextInterface {
 
     addToCart: (productId: string) => void;
     removeFromCart: (productId: string) => void;
+    decreaseQuantity: (productId: string) => void;
     clearCart: () => void;
 
     resetUserDataContext: () => void;
