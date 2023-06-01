@@ -1,3 +1,6 @@
+import { Category } from "@/types/Category";
+import { Product } from "@/types/Product";
+
 export interface ContextProviderProps {
     children: React.ReactNode;
 }
@@ -25,4 +28,11 @@ export interface AuthState {
 export interface LoadingContextInterface {
     loading: boolean;
     setLoading: (loading: boolean) => void;
+}
+
+// DataContext
+
+export interface DataContextInterface {
+    products: Product[] | null;
+    categories: Category[] | null;
 }

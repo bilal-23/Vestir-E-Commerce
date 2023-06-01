@@ -1,3 +1,4 @@
+import { DataContextProvider } from "../../context/DataContext";
 import { AuthProvider } from "../../context/AuthContext";
 import { LoadingProvider } from "../../context/LoadingContext";
 
@@ -8,7 +9,10 @@ interface Props {
 const ContextContainer: React.FC<Props> = ({ children }) => {
   return (
     <LoadingProvider>
-      <AuthProvider>{children}</AuthProvider>;
+      <AuthProvider>
+        <DataContextProvider>{children}</DataContextProvider>
+      </AuthProvider>
+      ;
     </LoadingProvider>
   );
 };

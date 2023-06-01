@@ -1,25 +1,27 @@
 import styles from "./Products.module.css";
 import { useEffect, useState } from "react";
-import ProductsArray from "../../products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Link } from "react-router-dom";
+import { useData } from "../../context/DataContext";
 
 const Products = () => {
+  const { products } = useData();
   return (
     <div className={styles["container"]}>
-      {ProductsArray.map((product) => {
-        return (
-          <Product
-            id={product._id}
-            key={product._id}
-            images={product.images}
-            title={product.title}
-            trending={product.trending}
-            price={product.price}
-          />
-        );
-      })}
+      {products &&
+        products.map((product) => {
+          return (
+            <Product
+              id={product._id}
+              key={product._id}
+              images={product.images}
+              title={product.title}
+              trending={product.trending}
+              price={product.price}
+            />
+          );
+        })}
     </div>
   );
 };
