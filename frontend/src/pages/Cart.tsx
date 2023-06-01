@@ -3,6 +3,7 @@ import CartIcon from "../assets/cart.svg";
 import CartComponent from "../components/Cart/Cart";
 import { useUserData } from "../context/UserData";
 import { getRandomMessage } from "../helpers/getRandomMessage";
+import { Link } from "react-router-dom";
 
 const cartEmptyResponse = [
   "Whoopsie-daisy! It seems your cart is feeling rather weightless, like a feather floating in the wind",
@@ -35,6 +36,9 @@ const Cart = () => {
       ) : (
         <p className={`${styles["empty"]} text-s text-300`}>
           {getRandomMessage(cartEmptyResponse)}
+          <Link to="/products" className={styles["btn"]}>
+            Shop Now
+          </Link>
         </p>
       )}
     </main>

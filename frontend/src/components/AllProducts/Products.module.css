@@ -60,10 +60,10 @@
   width: 15rem;
   margin: 0 auto;
   margin-bottom: 2rem;
-  padding: 1rem 1rem;
-  font-size: 1.6rem;
+  padding: 1rem 1rem !important;
+  font-size: 1.6rem !important;
   background-color: var(--blue);
-  color: #fff;
+  color: #fff !important;
   border: none;
   outline: none;
   justify-content: center;

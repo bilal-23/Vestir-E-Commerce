@@ -5,6 +5,7 @@ import { useUserData } from "../context/UserData";
 import { Product } from "../types/Product";
 import { useEffect, useState } from "react";
 import { getRandomMessage } from "../helpers/getRandomMessage";
+import { Link } from "react-router-dom";
 
 const emptyWishlistMessages = [
   "Oh no! Your wishlist is currently as empty as a blank canvas.",
@@ -45,6 +46,9 @@ const Wishlist = () => {
       ) : (
         <p className={`${styles["empty"]} text-s text-300`}>
           {getRandomMessage(emptyWishlistMessages)}
+          <Link to="/products" className={styles["btn"]}>
+            Shop All
+          </Link>
         </p>
       )}
     </main>

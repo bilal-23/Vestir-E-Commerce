@@ -13,4 +13,8 @@ export const API_URLS = {
     deleteFromWishlist: (productId: string) => `${ROOT_URL}/api/wishlist/delete/${productId}`,
 
     getCart: `${ROOT_URL}/api/cart`,
+    addToCart: `${ROOT_URL}/api/cart/add-to-cart`,
+    decreaseQuantity: (productId: string) => `${ROOT_URL}/api/cart/delete/${productId}`,
+    removeCartItem: (productId: string) => `${ROOT_URL}/api/cart/delete/${productId}/true`,
+
 }

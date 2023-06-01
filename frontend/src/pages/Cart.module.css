@@ -1,6 +1,6 @@
 .main {
   padding: 5rem;
-  height: 50vh;
+  min-height: 50vh;
 }
 .heading {
   display: flex;
@@ -27,7 +27,29 @@
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  gap: 2rem;
 }
+.btn {
+  background-color: var(--primary);
+  color: #fff !important;
+  padding: 0.2rem 3rem;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+}
+.btn:hover {
+  background-color: #fff;
+  border: 1px solid var(--primary);
+  color: var(--primary) !important;
+}
+
 @media only screen and (max-width: 56.25em) {
   .main {
     padding: 4rem 3rem;
