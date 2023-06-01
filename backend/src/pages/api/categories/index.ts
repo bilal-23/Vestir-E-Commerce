@@ -32,13 +32,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         // Get all the products from the database
         const categoriesList = await categories.find({}).toArray();
         // Close the database connection
-        client.connection.close();
+        // client.connection.close();
         // Return the products list
         return res.status(200).json({ categories: categoriesList });
     }
     catch (error) {
         // Close the database connection
-        client.connection.close();
+        // client.connection.close();
         return res.status(500).json({ message: "Cannot get the categories" });
     }
 }
