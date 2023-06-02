@@ -3,9 +3,17 @@ import connectDB from '@/utils/connectToDb';
 import verifyToken from '@/utils/verifyToken';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuid } from 'uuid';
+import Cors from 'cors';
+import { runMiddleware } from '@/utils/middleware';
 
-// POST ADDRESSE
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const corsOptions: any = Cors({
+    origin: '*', // Replace * with the specific origin(s) allowed to access your API
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify the HTTP methods allowed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+});
+// Initialize the CORS middleware
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check if method is not get 
     if (req.method !== 'PUT') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -44,18 +52,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const address = await addresses.findOne({ email });
     // Address not found
     if (!address) {
-        return res.status(404).json({ message: "Address data not found" });
+        return res.status(404).json({ message: "Address Data not found" });
     }
     const addressIndex = address?.addresses.findIndex((address: any) => address._id === addressData._id);
     if (addressIndex === -1) {
-        return res.status(404).json({ message: "Address data not found" });
+        return res.status(404).json({ message: "Address does not exist" });
     }
     // Find the address with the given id and update it
     await addresses.updateOne({ email }, { $set: { [`addresses.${addressIndex}`]: addressData } });
 
-    // Close the database connection
-    client.connection.close();
     // Return the products list
     return res.status(200).json({ message: "Address updated" });
 
 }
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res, corsOptions);
+    return handler(req, res);
+}   

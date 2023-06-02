@@ -3,9 +3,18 @@ import connectDB from '@/utils/connectToDb';
 import verifyToken from '@/utils/verifyToken';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuid } from 'uuid';
+import Cors from 'cors';
+import { runMiddleware } from '@/utils/middleware';
 
-// POST ADDRESSE
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const corsOptions: any = Cors({
+    origin: '*', // Replace * with the specific origin(s) allowed to access your API
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify the HTTP methods allowed
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+});
+// Initialize the CORS middleware
+
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check if method is not get 
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -40,15 +49,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get cart from the database
     const address = await addresses.findOne({ email });
     // Cart not found
-    if (!addressData) {
+    if (!address) {
         return res.status(404).json({ message: "Address data not found" });
     }
     // Insert the addressData into the address array in the address document
-    await addresses.updateOne({ email }, { $push: { addresses: { _id: uuid(), ...addressData } } });
+    const _id = uuid();
+    const id = await addresses.updateOne({ email }, { $push: { addresses: { _id: _id, ...addressData } } });
 
-    // Close the database connection
-    client.connection.close();
     // Return the products list
-    return res.status(200).json({ message: "Address added" });
+    return res.status(200).json({ message: "Address added", _id: _id });
 
 }
+export default async function myAPI(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res, corsOptions);
+    return handler(req, res);
+}   
