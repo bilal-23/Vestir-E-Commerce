@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
 import styles from "./CartItem.module.css";
-import products from "../../products";
-import { Product } from "../../types/Product";
 
 interface Props {
   _id: string;
@@ -13,15 +10,7 @@ interface Props {
   size: string;
 }
 
-const CartItem: React.FC<Props> = ({
-  _id,
-  quantity,
-  image,
-  title,
-  price,
-  original_price,
-  size,
-}) => {
+const CartItem: React.FC<Props> = ({ quantity, image, title, price }) => {
   const formatPrice = (price: number) => {
     return price.toLocaleString("en-IN", {
       maximumFractionDigits: 2,
