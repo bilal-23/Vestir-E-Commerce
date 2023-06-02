@@ -25,6 +25,7 @@
   align-items: flex-start;
   gap: 5rem;
   padding-left: 10rem;
+  position: relative;
 }
 .title {
   text-transform: capitalize;
@@ -74,8 +75,12 @@
 .quantity-btn:active {
   transform: scale(0.9);
 }
-
-.remove-btn {
+.btn-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+.btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,8 +92,8 @@
   border: 2px solid var(--blue);
   font-size: 1.5rem;
   cursor: pointer;
-  max-width: 20rem;
-  align-items: flex-start;
+  width: 100%;
+  align-items: center;
   transition: all 0.3s ease-in-out;
 }
 .delete-icon {
@@ -96,15 +101,63 @@
   color: var(--blue);
   transition: all 0.3s ease-in-out;
 }
-.remove-btn:hover {
+.btn:hover {
   background-color: var(--blue);
   color: white;
 }
-.remove-btn:hover .delete-icon {
+.btn:hover .delete-icon {
   color: white;
 }
-.remove-btn:active {
+.btn:active {
   transform: scale(0.9);
+}
+
+/* LOADER */
+/* Wislist laoder */
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+}
+.overlay {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.001);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  /* border: 6px solid var(--blue-hover); */
+  border: 6px solid var(--neutral400);
+  border-color: var(--neutral400) transparent var(--neutral400) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (hover: none) {
@@ -145,6 +198,17 @@
   .content {
     padding-left: 0;
     gap: 2rem;
+  }
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
+  .btn {
+    width: 100%;
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 28.125em) {

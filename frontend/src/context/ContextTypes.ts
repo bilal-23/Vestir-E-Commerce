@@ -45,6 +45,7 @@ export interface UserDataContextInterface {
     cartItems: CartItem[] | null
     cartTotal: number | null;
     cartItemsCount: number | null;
+    addresses: Address[] | null;
 
     addToWishlist: (productId: string) => void;
     removeFromWishlist: (productId: string) => void;
@@ -55,5 +56,32 @@ export interface UserDataContextInterface {
     decreaseQuantity: (productId: string) => void;
     clearCart: () => void;
 
+    addAddress: (address: AddressForm, _id: string) => void;
+    removeAddress: (addressId: string) => void;
+    updateAddress: (address: Address) => void;
+
     resetUserDataContext: () => void;
+}
+
+// Address
+export interface Address {
+    _id: string;
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
+    country: string,
+    state: string,
+    zip: string,
+    phone: string,
+}
+export interface AddressForm {
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
+    country: string,
+    state: string,
+    zip: string,
+    phone: string,
 }

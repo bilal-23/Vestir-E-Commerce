@@ -6,7 +6,10 @@
   flex-direction: column;
   gap: 2rem;
 }
-
+.empty {
+  width: 100%;
+  text-align: center;
+}
 .new-address {
   display: flex;
 }
@@ -31,17 +34,7 @@
   background-color: var(--blue);
   color: #fff;
 }
-.address-card {
-  width: 40rem;
-  background-color: var(--blue) !important;
-  border: 2px solid var(--blue) !important;
-  color: #fff;
-}
-.address-card:hover {
-  background-color: var(--blue-hover) !important;
-  border: 2px solid var(--blue-hover) !important;
-  color: #fff;
-}
+
 .addresses {
   display: flex;
   flex-wrap: wrap;
@@ -49,40 +42,17 @@
   padding: 2rem 0;
   overflow-y: scroll;
 }
-.buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  background: transparent;
-  padding: 1rem 2rem;
-  outline: none;
-  color: #fff;
-  border: 2px solid #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  width: 80%;
-  align-items: flex-start;
-  transition: all 0.3s ease-in-out;
-}
 
-@media (hover: none) {
-  .address-card:hover {
-    background-color: var(--blue) !important;
-    border: 2px solid var(--blue) !important;
-    color: #fff;
+@media screen and (max-width: 64em) {
+  .addresses {
+    justify-content: center;
   }
 }
-@media screen and (max-width: 64em) {
-  .address-card {
-    width: 100% !important;
+@media screen and (max-width: 50em) {
+  .addresses {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 

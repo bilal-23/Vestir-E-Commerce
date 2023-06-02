@@ -1,22 +1,15 @@
+import { useUserData } from "../../context/UserData";
 import CartItem from "./CartItem";
 import styles from "./CheckoutDetail.module.css";
 
-const cartItems = [
-  {
-    id: "be51624b-c4a5-44f2-9c16-69b284e5fd5c",
-    quantity: 1,
-  },
-  {
-    id: "f5a3040d-5247-4b95-8a5d-9487dbd77392",
-    quantity: 2,
-  },
-  {
-    id: "c1d8eb29-8b89-4f9e-bd45-1f81bc0244e6",
-    quantity: 3,
-  },
-];
-
 const CheckoutDetail = () => {
+  const { cartItems, cartTotal } = useUserData();
+  const formatPrice = (price: number) => {
+    return price.toLocaleString("en-IN", {
+      maximumFractionDigits: 2,
+    });
+  };
+
   return (
     <section className={styles["container"]}>
       <div className={styles["heading"]}>
@@ -24,9 +17,24 @@ const CheckoutDetail = () => {
       </div>
       <div>
         <div className={styles["cart-items"]}>
-          {cartItems.map((item) => (
-            <CartItem id={item.id} key={item.id} quantity={item.quantity} />
-          ))}
+          {cartItems &&
+            cartItems.map((item) => (
+              <CartItem
+                key={item._id}
+                _id={item._id}
+                quantity={item.quantity}
+                image={item.images[0]}
+                original_price={item.originalPrice}
+                price={item.price}
+                size={item.size}
+                title={item.title}
+              />
+            ))}
+        </div>
+        <div className={styles["cart-total"]}>
+          {cartTotal && (
+            <p className="text-300 text-s">Rs {formatPrice(cartTotal)}</p>
+          )}
         </div>
         <button className={styles["payment-btn"]}>Proceed to payment</button>
       </div>

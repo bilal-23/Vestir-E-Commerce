@@ -25,7 +25,7 @@ export const Product: React.FC<ProductProps> = ({
   const { wishlist } = useUserData();
   const [isHoverSupported, setIsHoverSupported] = useState(true);
   const [productImage, setProductImage] = useState(images[0]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({ cart: false, wishlist: false });
   const { addItemToWishlist, removeItemFromWishlist } = useWishlist();
   const { addItemToCart } = useCart();
   const isWishlisted = wishlist?.includes(id);
@@ -61,23 +61,23 @@ export const Product: React.FC<ProductProps> = ({
   };
 
   const handleWishlistClick = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
+    if (isLoading.wishlist) return;
+    setIsLoading((prev) => ({ ...prev, wishlist: true }));
     if (isWishlisted) {
       await removeItemFromWishlist(id);
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, wishlist: false }));
     } else {
       await addItemToWishlist(id);
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, wishlist: false }));
     }
   };
 
   const handleAddToCart = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
+    if (isLoading.cart) return;
     if (!isInCart) {
+      setIsLoading((prev) => ({ ...prev, cart: true }));
       await addItemToCart(id);
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, cart: false }));
     }
   };
 
@@ -101,6 +101,8 @@ export const Product: React.FC<ProductProps> = ({
           className={styles["wishlist"]}
           sx={{ color: `${isWishlisted ? "red" : "black"}` }}
         />
+        {isLoading.wishlist && <Loader />}
+        {isLoading.cart && <Loader />}
       </div>
 
       <div className={styles["content"]}>
@@ -122,5 +124,18 @@ export const Product: React.FC<ProductProps> = ({
         <p className={`text-xs text-500 ${styles["price"]}`}>Rs. {price}</p>
       </div>
     </div>
+  );
+};
+
+export const Loader = ({ cartLoader }: { cartLoader?: boolean }) => {
+  return (
+    <>
+      <div
+        className={`${styles["lds-dual-ring"]} ${
+          cartLoader && styles["cart-loader"]
+        }`}
+      ></div>
+      {!cartLoader && <div className={styles["overlay"]}></div>}
+    </>
   );
 };

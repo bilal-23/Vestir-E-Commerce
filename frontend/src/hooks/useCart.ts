@@ -20,6 +20,7 @@ export const useCart = () => {
             if (res.status === 200) {
                 toast.success(res?.data?.message || "Item added to cart!");
                 addToCart(productId);
+
             }
         }
         catch (err: any) {

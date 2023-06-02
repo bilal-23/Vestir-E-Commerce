@@ -1,22 +1,31 @@
-import { useState } from "react";
 import styles from "./Buttons.module.css";
 
-const Buttons = () => {
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const [isAddedToWishlist, setIsAddedToWishlist] = useState(false);
+interface Props {
+  handleAddToCart: () => void;
+  handleWishlistButton: () => void;
+  isInCart?: boolean;
+  isWishlisted?: boolean;
+}
+
+const Buttons: React.FC<Props> = ({
+  handleAddToCart,
+  handleWishlistButton,
+  isInCart,
+  isWishlisted,
+}) => {
   return (
     <div className={styles["container"]}>
       <button
         className={`btn btn-primary ${styles["btn"]}`}
-        onClick={() => setIsAddedToCart(!isAddedToCart)}
+        onClick={() => handleAddToCart()}
       >
-        {!isAddedToCart ? "Add to Cart" : "Go to Cart"}
+        {!isInCart ? "Add to Cart" : "Go to Cart"}
       </button>
       <button
         className={`btn btn-secondary ${styles["btn"]}`}
-        onClick={() => setIsAddedToWishlist(!isAddedToWishlist)}
+        onClick={handleWishlistButton}
       >
-        Add to Wishlist
+        {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
       </button>
     </div>
   );

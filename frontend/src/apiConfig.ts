@@ -6,6 +6,7 @@ export const API_URLS = {
     signup: `${ROOT_URL}/api/auth/signup`,
 
     getProducts: `${ROOT_URL}/api/products`,
+    getProduct: (productId: string) => `${ROOT_URL}/api/products/${productId}`,
 
     getCategories: `${ROOT_URL}/api/categories`,
 
@@ -16,5 +17,10 @@ export const API_URLS = {
     addToCart: `${ROOT_URL}/api/cart/add-to-cart`,
     decreaseQuantity: (productId: string) => `${ROOT_URL}/api/cart/delete/${productId}`,
     removeCartItem: (productId: string) => `${ROOT_URL}/api/cart/delete/${productId}/true`,
+
+    getAddresses: `${ROOT_URL}/api/address`,
+    postAddress: `${ROOT_URL}/api/address/add`,
+    deleteAddress: (addressId: string) => `${ROOT_URL}/api/address/delete/${addressId}`,
+    updateAddress: `${ROOT_URL}/api/address/edit`,
 
 }

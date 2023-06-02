@@ -15,7 +15,8 @@
   bottom: 0;
   top: 0;
   right: 0;
-  background: rgba(201, 202, 208, 0.5);
+  background: rgba(255, 255, 255, 0.002);
+  backdrop-filter: blur(8px);
   z-index: 99;
 }
 .lds-roller div {
@@ -29,8 +30,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgb(7, 7, 7);
-  /* background: var(--blue); */
+  /* background: rgb(7, 7, 7); */
+  background: var(--neutral700);
   margin: -4px 0 0 -4px;
 }
 .lds-roller div:nth-child(1) {

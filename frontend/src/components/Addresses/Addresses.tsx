@@ -3,8 +3,10 @@ import styles from "./Addresses.module.css";
 import { useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import AddressForm from "./AddressForm";
+import { useUserData } from "../../context/UserData";
 
 const Addresses = () => {
+  const { addresses } = useUserData();
   const [openForm, setOpenForm] = useState(false);
   return (
     <>
@@ -16,18 +18,26 @@ const Addresses = () => {
           {openForm && <AddressForm closeForm={() => setOpenForm(false)} />}
         </div>
         <div className={styles["addresses"]}>
-          <Address classes={styles["address-card"]}>
-            <div className={styles["buttons"]}>
-              <button className={styles["btn"]}>Edit</button>
-              <button className={styles["btn"]}>Delete</button>
-            </div>
-          </Address>
-          <Address classes={styles["address-card"]}>
-            <div className={styles["buttons"]}>
-              <button className={styles["btn"]}>Edit</button>
-              <button className={styles["btn"]}>Delete</button>
-            </div>
-          </Address>
+          {addresses?.length !== 0 ? (
+            addresses?.map((address) => {
+              return (
+                <Address
+                  key={address._id}
+                  _id={address._id}
+                  firstName={address.firstName}
+                  lastName={address.lastName}
+                  phone={address.phone}
+                  city={address.city}
+                  zip={address.zip}
+                  address={address.address}
+                  country={address.country}
+                  state={address.state}
+                />
+              );
+            })
+          ) : (
+            <p className={styles["empty"]}>No Address Added</p>
+          )}
         </div>
       </main>
     </>

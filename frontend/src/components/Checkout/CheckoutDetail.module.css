@@ -28,3 +28,10 @@
   transition: 0.3s ease all;
   margin-top: 5rem;
 }
+.cart-total {
+  margin-top: 2rem;
+  border-top: 2px solid var(--blue);
+  display: flex;
+  padding-top: 2rem;
+  justify-content: center;
+}

@@ -1,6 +1,11 @@
 // This will contain Cart, Wishlist, Address and Orders
 import { createContext, useContext, useEffect, useState } from "react";
-import { ContextProviderProps, UserDataContextInterface } from "./ContextTypes";
+import {
+  Address,
+  AddressForm,
+  ContextProviderProps,
+  UserDataContextInterface,
+} from "./ContextTypes";
 import axios from "axios";
 import { API_URLS } from "../apiConfig";
 import { useAuth } from "./AuthContext";
@@ -14,6 +19,7 @@ const UserDataContext = createContext<UserDataContextInterface>({
   cartItems: [] || null,
   cartTotal: 0,
   cartItemsCount: 0,
+  addresses: [] || null,
 
   addToWishlist: () => {},
   removeFromWishlist: () => {},
@@ -23,6 +29,11 @@ const UserDataContext = createContext<UserDataContextInterface>({
   removeFromCart: () => {},
   clearCart: () => {},
   decreaseQuantity: () => {},
+
+  addAddress: () => {},
+  removeAddress: () => {},
+  updateAddress: () => {},
+
   resetUserDataContext: () => {},
 });
 
@@ -34,6 +45,7 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
   const { products } = useData();
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [cart, setCart] = useState<CartType | null>(null);
+  const [addresses, setAddresses] = useState<Address[] | null>(null);
 
   useEffect(() => {
     async function init() {
@@ -41,6 +53,7 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
         setLoading(true);
         await fetchWishlist();
         await fetchCart();
+        await fetchAddresses();
       } catch (e) {
         window.location.reload();
         setLoading(false);
@@ -85,6 +98,20 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
       toast.error(
         err?.response?.data?.message ||
           "Something went wrong while fetching cart"
+      );
+    }
+  };
+  const fetchAddresses = async () => {
+    try {
+      const res = await axios.get(API_URLS.getAddresses, {
+        headers: { authorization: token },
+      });
+      const addresses = res.data.address.addresses;
+      setAddresses(addresses);
+    } catch (err: any) {
+      toast.error(
+        err?.response?.data?.message ||
+          "Something went wrong while fetching addresses"
       );
     }
   };
@@ -186,6 +213,32 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
     setWishlist([]);
   };
 
+  const addAddress = (address: AddressForm, id: string) => {
+    setAddresses((prev) => {
+      if (prev === null) return [{ ...address, _id: id }];
+      return [{ ...address, _id: id }, ...prev];
+    });
+  };
+
+  const removeAddress = (addressId: string) => {
+    setAddresses((prev) => {
+      if (prev === null) return null;
+      return prev.filter((address) => address._id !== addressId);
+    });
+  };
+
+  const updateAddress = (addressFormData: Address) => {
+    setAddresses((prev) => {
+      if (prev === null) return null;
+      return prev.map((address) => {
+        if (address._id === addressFormData._id) {
+          return { ...address, ...addressFormData };
+        }
+        return address;
+      });
+    });
+  };
+
   const userDataContext = {
     wishlist,
     cartItems: cart?.items || null,
@@ -199,6 +252,10 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
     removeFromCart,
     clearCart,
     resetUserDataContext: resetContext,
+    addresses,
+    addAddress,
+    removeAddress,
+    updateAddress,
   };
 
   return (
