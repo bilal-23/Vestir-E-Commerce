@@ -1,9 +1,9 @@
 export interface Product {
     _id: string;
     images: string[];
-    category: string;
+    category: "Men" | "Women" | "Accessories";
     rating: string;
-    size: string;
+    size: "XS" | "S" | "M" | "L" | "XL";
     description: string;
     title: string;
     type: string;

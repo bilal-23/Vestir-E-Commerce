@@ -3,13 +3,14 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useState } from "react";
+import { useFilter } from "../../context/FilterContext";
 
 const RatingFilter = () => {
-  const [ratingValue, setRatingValue] = useState<string>("5");
+  const { rating, filterByRating } = useFilter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRatingValue((event.target as HTMLInputElement).value);
+    const value = event.target.value;
+    filterByRating(value);
   };
 
   return (
@@ -20,7 +21,7 @@ const RatingFilter = () => {
           aria-labelledby="demo-row-radio-buttons-group-label"
           name="row-radio-buttons-group"
           className={styles["radio-group"]}
-          value={ratingValue}
+          value={rating}
           onChange={handleChange}
         >
           <FormControlLabel
@@ -58,7 +59,7 @@ const RatingFilter = () => {
             }}
           />
           <FormControlLabel
-            value="2"
+            value="1"
             control={<Radio />}
             label="1 star & above"
             sx={{

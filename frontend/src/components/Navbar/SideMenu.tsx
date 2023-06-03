@@ -4,6 +4,7 @@ import styles from "./SideMenu.module.css";
 import { useState, useEffect } from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
+import { useFilter } from "../../context/FilterContext";
 
 interface Props {
   showMenu: boolean;
@@ -19,6 +20,7 @@ const overlayBackgroundColors = [
 
 const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
   const { user, logout } = useAuth();
+  const { clearFilters } = useFilter();
   const [hovered, setHovered] = useState(0);
   const location = useLocation();
   const { resetUserDataContext } = useUserData();
@@ -45,6 +47,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
   const handleLogout = () => {
     logout();
     resetUserDataContext();
+    clearFilters();
   };
 
   return (

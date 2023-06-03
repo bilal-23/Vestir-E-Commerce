@@ -1,23 +1,16 @@
-import { useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import styles from "./Filter.module.css";
+import { useFilter } from "../../context/FilterContext";
+import { CategoryFilter as CategoryFilterType } from "../../context/ContextTypes";
 
 export default function CategoryFilter() {
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+  const { category, filterByCategory } = useFilter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    const value = event.target.value;
-    // Now check if the value is already in the array
-    if (isChecked) {
-      setCategoriesSelected((prev) => [...prev, value]);
-    } else {
-      setCategoriesSelected((prev) =>
-        prev.filter((category) => category !== value)
-      );
-    }
+    const value = event.target.value as CategoryFilterType;
+    filterByCategory(value);
   };
 
   return (
@@ -26,9 +19,9 @@ export default function CategoryFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={categoriesSelected.includes("men")}
+              checked={category.includes("Men")}
               onChange={handleChange}
-              value={"men"}
+              value={"Men"}
               inputProps={{ "aria-label": "controlled" }}
             />
           }
@@ -37,9 +30,9 @@ export default function CategoryFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={categoriesSelected.includes("women")}
+              checked={category.includes("Women")}
               onChange={handleChange}
-              value={"women"}
+              value={"Women"}
               inputProps={{ "aria-label": "controlled" }}
             />
           }
@@ -48,9 +41,9 @@ export default function CategoryFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={categoriesSelected.includes("accessories")}
+              checked={category.includes("Accessories")}
               onChange={handleChange}
-              value={"accessories"}
+              value={"Accessories"}
               inputProps={{ "aria-label": "controlled" }}
             />
           }

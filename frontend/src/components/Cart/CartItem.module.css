@@ -136,6 +136,7 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.001);
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   z-index: 10;
 }
 .lds-dual-ring:after {
@@ -211,8 +212,14 @@
     max-width: 100%;
   }
 }
+@media screen and (max-width: 37.5em) {
+  .image-container {
+    width: 25rem;
+  }
+}
+
 @media screen and (max-width: 28.125em) {
   .image-container {
-    /* width: 30rem; */
+    width: 20rem;
   }
 }

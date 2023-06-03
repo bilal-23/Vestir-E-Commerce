@@ -6,6 +6,7 @@ import CategoryFilter from "./CategroyFilter";
 import SizeFilter from "./SizeFilter";
 import Sort from "./Sort";
 import RatingFilter from "./RatingFilter";
+import { useFilter } from "../../context/FilterContext";
 
 const Filters = () => {
   const [openFilter, setOpenFilter] = useState({
@@ -115,6 +116,7 @@ interface FilterProps {
   };
 }
 const Filter: React.FC<FilterProps> = ({ filter }) => {
+  const { clearFilters } = useFilter();
   return (
     <div className={styles["filter-container"]}>
       {filter.price && <PriceFilter />}
@@ -125,7 +127,9 @@ const Filter: React.FC<FilterProps> = ({ filter }) => {
           <RatingFilter />{" "}
         </div>
       )}
-      <button className={styles["filter-reset-btn"]}>Remove All Filters</button>
+      <button className={styles["filter-reset-btn"]} onClick={clearFilters}>
+        Remove All Filters
+      </button>
     </div>
   );
 };

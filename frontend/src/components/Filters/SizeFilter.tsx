@@ -1,21 +1,16 @@
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import styles from "./Filter.module.css";
-import { useState } from "react";
+import FormGroup from "@mui/material/FormGroup";
+import Checkbox from "@mui/material/Checkbox";
+import { useFilter } from "../../context/FilterContext";
+import { SizesFilter } from "../../context/ContextTypes";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 export default function SizeFilter() {
-  const [sizesSelected, setSizesSelected] = useState<string[]>(["XS", "S"]);
+  const { sizes, filterBySize } = useFilter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    const value = event.target.value;
-    // Now check if the value is already in the array
-    if (isChecked) {
-      setSizesSelected((prev) => [...prev, value]);
-    } else {
-      setSizesSelected((prev) => prev.filter((size) => size !== value));
-    }
+    const value = event.target.value as SizesFilter;
+    filterBySize(value);
   };
 
   return (
@@ -24,7 +19,7 @@ export default function SizeFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={sizesSelected.includes("XS")}
+              checked={sizes.includes("XS")}
               onChange={handleChange}
               value={"XS"}
               inputProps={{ "aria-label": "controlled" }}
@@ -35,7 +30,7 @@ export default function SizeFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={sizesSelected.includes("S")}
+              checked={sizes.includes("S")}
               onChange={handleChange}
               value={"S"}
               inputProps={{ "aria-label": "controlled" }}
@@ -46,7 +41,7 @@ export default function SizeFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={sizesSelected.includes("M")}
+              checked={sizes.includes("M")}
               onChange={handleChange}
               value={"M"}
               inputProps={{ "aria-label": "controlled" }}
@@ -57,7 +52,7 @@ export default function SizeFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={sizesSelected.includes("L")}
+              checked={sizes.includes("L")}
               onChange={handleChange}
               value={"L"}
               inputProps={{ "aria-label": "controlled" }}
@@ -68,7 +63,7 @@ export default function SizeFilter() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={sizesSelected.includes("XL")}
+              checked={sizes.includes("XL")}
               onChange={handleChange}
               value={"XL"}
               inputProps={{ "aria-label": "controlled" }}

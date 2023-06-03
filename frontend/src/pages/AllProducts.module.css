@@ -1,0 +1,6 @@
+.no-products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10rem auto;
+}

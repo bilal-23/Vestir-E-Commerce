@@ -34,13 +34,11 @@
 @media screen and (max-width: 56.25em) {
   .brand {
     font-size: 15rem;
-    animation-name: fontShrink-tablet;
   }
 }
 @media screen and (max-width: 37.5em) {
   .brand {
     font-size: 8rem;
-    animation-name: fontShrink-mobile;
   }
 }
 
@@ -55,29 +53,9 @@
 
 @keyframes fontShrink {
   0% {
-    font-size: 20rem;
+    transform: scale(1);
   }
   100% {
-    font-size: 5rem;
-    letter-spacing: 0em;
-  }
-}
-
-@keyframes fontShrink-tablet {
-  0% {
-    font-size: 15rem;
-  }
-  100% {
-    font-size: 5rem;
-    letter-spacing: 0em;
-  }
-}
-@keyframes fontShrink-mobile {
-  0% {
-    font-size: 8rem;
-  }
-  100% {
-    font-size: 2rem;
-    letter-spacing: 0em;
+    transform: scale(0.3);
   }
 }

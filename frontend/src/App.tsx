@@ -16,9 +16,10 @@ import BrandLogoAnimation from "./components/BrandLogoAnimation/BrandLogoAnimati
 
 function App() {
   const { loading } = useLoading();
-  const [brandLogoAnimation, setBrandLogoAnimation] = useState(true);
+  const [brandLogoAnimation, setBrandLogoAnimation] = useState(false);
 
   useEffect(() => {
+    if (!brandLogoAnimation) return;
     let timer = setTimeout(() => {
       setBrandLogoAnimation(false);
     }, 3600);

@@ -3,14 +3,17 @@ import styles from "./Navbar.module.css";
 import PersonIcon from "@mui/icons-material/Person";
 import CartIcon from "../../assets/cart.svg";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useUserData } from "../../context/UserData";
+import { useFilter } from "../../context/FilterContext";
 
 const Navbar = () => {
+  const searchInputRef = useRef<HTMLInputElement | null>(null)!;
   const [search, setSearch] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const { cartItemsCount } = useUserData();
+  const { searchProducts } = useFilter();
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -34,6 +37,9 @@ const Navbar = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (!searchInputRef.current) return;
+    const searchTerm = searchInputRef.current.value;
+    searchProducts(searchTerm);
   };
 
   return (
@@ -50,6 +56,7 @@ const Navbar = () => {
               className={`${
                 search ? styles["search"] : styles["search-hide"]
               }  `}
+              ref={searchInputRef}
               placeholder="Search Item"
             />
             <SearchIcon

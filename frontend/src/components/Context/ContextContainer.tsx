@@ -2,6 +2,7 @@ import { DataContextProvider } from "../../context/DataContext";
 import { AuthProvider } from "../../context/AuthContext";
 import { LoadingProvider } from "../../context/LoadingContext";
 import { UserDataProvider } from "../../context/UserData";
+import { FilterProvider } from "../../context/FilterContext";
 
 interface Props {
   children: React.ReactNode;
@@ -12,7 +13,9 @@ const ContextContainer: React.FC<Props> = ({ children }) => {
     <LoadingProvider>
       <AuthProvider>
         <DataContextProvider>
-          <UserDataProvider>{children}</UserDataProvider>
+          <FilterProvider>
+            <UserDataProvider>{children}</UserDataProvider>
+          </FilterProvider>
         </DataContextProvider>
       </AuthProvider>
       ;

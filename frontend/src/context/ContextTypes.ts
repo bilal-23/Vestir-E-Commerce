@@ -87,3 +87,41 @@ export interface AddressForm {
 }
 
 // Filter Context
+type PositiveNumber = number extends infer N ? N extends number ? N extends 0 ? never : N : never : never;
+type MaxNumber5000 = PositiveNumber extends infer N ? N extends number ? N extends 0 ? never : N extends 50001 ? never : N : never : never;
+
+
+export type CategoryFilter = "Men" | "Women" | "Accessories"
+export type SizesFilter = "XS" | "S" | "M" | "L" | "XL";
+export type SortByFilter = "default-sort" | "trending" | "price-low-to-high" | "price-high-to-low";
+
+export interface FilterState {
+    sizes: SizesFilter[];
+    category: CategoryFilter[];
+    minPrice: PositiveNumber;
+    maxPrice: MaxNumber5000;
+    searchTerm: string;
+    sortBy: SortByFilter;
+    rating: string;
+    filteredProducts: Product[] | null;
+}
+export interface FilterContextInterface {
+    sizes: SizesFilter[];
+    category: CategoryFilter[];
+    minPrice: PositiveNumber;
+    maxPrice: MaxNumber5000;
+    searchTerm: string;
+    sortBy: SortByFilter;
+    rating: string;
+    filteredProducts: Product[] | null;
+
+    // Actions
+    searchProducts: (searchTerm: string) => void;
+    filterBySize: (size: SizesFilter) => void;
+    filterByCategory: (category: CategoryFilter) => void;
+    filterByRating: (rating: string) => void;
+    filterByPrice: (minPrice: PositiveNumber, maxPrice: MaxNumber5000) => void;
+    sort: (sortBy: SortByFilter) => void;
+
+    clearFilters: () => void;
+}
