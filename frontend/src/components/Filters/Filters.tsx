@@ -48,6 +48,7 @@ const Filters = () => {
           size: false,
           rating: !prev.rating,
         }));
+        break;
       default:
         break;
     }
