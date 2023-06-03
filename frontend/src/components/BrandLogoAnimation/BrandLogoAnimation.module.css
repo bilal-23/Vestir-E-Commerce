@@ -11,10 +11,37 @@
   animation: 0.5s fadeOut ease-in-out forwards;
   animation-delay: 3s;
 }
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10001;
+}
 .brand {
+  position: relative;
+  z-index: 10002;
+  text-align: center;
   color: #fff;
   font-size: 20rem;
   letter-spacing: 0.2em;
+  animation: 0.5s fontShrink ease-in-out forwards;
+  animation-delay: 3s;
+}
+
+@media screen and (max-width: 56.25em) {
+  .brand {
+    font-size: 15rem;
+    animation-name: fontShrink-tablet;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .brand {
+    font-size: 8rem;
+    animation-name: fontShrink-mobile;
+  }
 }
 
 @keyframes fadeOut {
@@ -23,5 +50,34 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes fontShrink {
+  0% {
+    font-size: 20rem;
+  }
+  100% {
+    font-size: 5rem;
+    letter-spacing: 0em;
+  }
+}
+
+@keyframes fontShrink-tablet {
+  0% {
+    font-size: 15rem;
+  }
+  100% {
+    font-size: 5rem;
+    letter-spacing: 0em;
+  }
+}
+@keyframes fontShrink-mobile {
+  0% {
+    font-size: 8rem;
+  }
+  100% {
+    font-size: 2rem;
+    letter-spacing: 0em;
   }
 }

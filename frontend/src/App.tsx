@@ -22,7 +22,6 @@ function App() {
     let timer = setTimeout(() => {
       setBrandLogoAnimation(false);
     }, 3600);
-
     return () => {
       clearTimeout(timer);
     };
