@@ -5,21 +5,24 @@ import PriceFilter from "./PriceFilter";
 import CategoryFilter from "./CategroyFilter";
 import SizeFilter from "./SizeFilter";
 import Sort from "./Sort";
+import RatingFilter from "./RatingFilter";
 
 const Filters = () => {
   const [openFilter, setOpenFilter] = useState({
     price: false,
     category: false,
     size: false,
+    rating: false,
   });
 
-  function toggleFilter(type: "price" | "category" | "size") {
+  function toggleFilter(type: "price" | "category" | "size" | "rating") {
     switch (type) {
       case "price":
         setOpenFilter((prev) => ({
           price: !prev.price,
           category: false,
           size: false,
+          rating: false,
         }));
         break;
       case "category":
@@ -27,6 +30,7 @@ const Filters = () => {
           price: false,
           category: !prev.category,
           size: false,
+          rating: false,
         }));
         break;
       case "size":
@@ -34,8 +38,16 @@ const Filters = () => {
           price: false,
           category: false,
           size: !prev.size,
+          rating: false,
         }));
         break;
+      case "rating":
+        setOpenFilter((prev) => ({
+          price: false,
+          category: false,
+          size: false,
+          rating: !prev.rating,
+        }));
       default:
         break;
     }
@@ -71,6 +83,17 @@ const Filters = () => {
             }`}
           />
         </div>
+        <div
+          className={styles["filter"]}
+          onClick={() => toggleFilter("rating")}
+        >
+          <h3 className="text-s text-400">Rating</h3>
+          <ExpandMoreIcon
+            className={`${styles["expand"]} ${
+              openFilter.rating && styles["active-icon"]
+            }`}
+          />
+        </div>
         {Object.values(openFilter).some((item) => item) && (
           <Filter filter={openFilter} />
         )}
@@ -87,6 +110,7 @@ interface FilterProps {
     price: boolean;
     category: boolean;
     size: boolean;
+    rating: boolean;
   };
 }
 const Filter: React.FC<FilterProps> = ({ filter }) => {
@@ -95,7 +119,12 @@ const Filter: React.FC<FilterProps> = ({ filter }) => {
       {filter.price && <PriceFilter />}
       {filter.category && <CategoryFilter />}
       {filter.size && <SizeFilter />}
-      <button className={styles["filter-reset-btn"]}>Remove Filters</button>
+      {filter.rating && (
+        <div>
+          <RatingFilter />{" "}
+        </div>
+      )}
+      <button className={styles["filter-reset-btn"]}>Remove All Filters</button>
     </div>
   );
 };

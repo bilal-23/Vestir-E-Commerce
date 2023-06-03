@@ -84,7 +84,7 @@
   text-align: left;
 }
 
-.filter-category {
+.filter-rating {
   display: flex !important;
   width: 100% !important;
   justify-content: flex-start;
@@ -97,7 +97,8 @@
   gap: 5rem;
   flex-wrap: wrap;
 }
-.filter-size div:first-child {
+.filter-size div:first-child,
+.filter-category div:first-child {
   display: flex !important;
   width: 100%;
   flex-direction: row !important;
@@ -128,5 +129,19 @@
     flex-direction: row !important;
     justify-content: flex-start !important;
     gap: 3rem !important;
+  }
+}
+@media screen and (max-width: 31.25em) {
+  .filters {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+  }
+  .filter {
+    display: flex;
+    justify-content: space-between;
   }
 }
