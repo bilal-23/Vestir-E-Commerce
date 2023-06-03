@@ -11,12 +11,26 @@ import Auth from "./pages/Auth";
 import { useLoading } from "./context/LoadingContext";
 import Loader from "./components/Loader/Loader";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { useState, useEffect } from "react";
+import BrandLogoAnimation from "./components/BrandLogoAnimation/BrandLogoAnimation";
 
 function App() {
   const { loading } = useLoading();
+  const [brandLogoAnimation, setBrandLogoAnimation] = useState(true);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setBrandLogoAnimation(false);
+    }, 3600);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
     <>
+      {brandLogoAnimation && <BrandLogoAnimation />}
       <Navbar />
       {loading && <Loader />}
       <Routes>

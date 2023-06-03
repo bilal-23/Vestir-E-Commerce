@@ -1,0 +1,27 @@
+.container {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 0.5s fadeOut ease-in-out forwards;
+  animation-delay: 3s;
+}
+.brand {
+  color: #fff;
+  font-size: 20rem;
+  letter-spacing: 0.2em;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
