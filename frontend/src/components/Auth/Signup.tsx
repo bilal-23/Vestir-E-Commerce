@@ -52,8 +52,8 @@ const Signup: React.FC<Props> = ({ setSignup }) => {
       return;
     }
     // ALL ARE VALID, REGISTER USER
-    await singup(email, password, name);
-    await login(email, password);
+    await singup(email.toLowerCase(), password, name);
+    await login(email.toLowerCase(), password);
   };
   return (
     <div className={styles["container"]}>
@@ -108,10 +108,12 @@ const Signup: React.FC<Props> = ({ setSignup }) => {
           />
         </div>
         <div className={styles["button-container"]}>
-          <button className={styles["btn"]}>Create account</button>
-          <button className={styles["btn"]} onClick={() => setSignup(false)}>
-            Already have an account ?
-          </button>
+          <div className={styles["main-btn"]}>
+            <button className={styles["btn"]}>Create account</button>
+            <button className={styles["btn"]} onClick={() => setSignup(false)}>
+              Already have an account ?
+            </button>
+          </div>
         </div>
       </form>
     </div>

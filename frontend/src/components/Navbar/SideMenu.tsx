@@ -2,6 +2,7 @@ import { useUserData } from "../../context/UserData";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./SideMenu.module.css";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import { NavLink, useLocation } from "react-router-dom";
 import { useFilter } from "../../context/FilterContext";
@@ -48,6 +49,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
     logout();
     resetUserDataContext();
     clearFilters();
+    toast.success("Logged out successfully");
   };
 
   return (

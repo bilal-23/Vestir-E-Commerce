@@ -41,6 +41,12 @@
 .button-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+.main-btn {
+  display: flex;
+  justify-content: center;
   gap: 2rem;
 }
 .btn {

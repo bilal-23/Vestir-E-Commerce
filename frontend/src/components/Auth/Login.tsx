@@ -34,7 +34,11 @@ const Login: React.FC<Props> = ({ setSignup }) => {
       return;
     }
     // BOTH ARE VALID, LOGIN USER
-    login(email, password);
+    login(email.toLowerCase(), password);
+  };
+
+  const guestLogin = () => {
+    login("test@test.com", "Test12345");
   };
 
   return (
@@ -58,7 +62,7 @@ const Login: React.FC<Props> = ({ setSignup }) => {
             Password
           </label>
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             placeholder="*********"
@@ -66,9 +70,19 @@ const Login: React.FC<Props> = ({ setSignup }) => {
           />
         </div>
         <div className={styles["button-container"]}>
-          <button className={styles["btn"]}>Sign in</button>
-          <button className={styles["btn"]} onClick={() => setSignup(true)}>
-            Create Account
+          <div className={styles["main-btn"]}>
+            <button className={styles["btn"]}>Sign in</button>
+            <button className={styles["btn"]} onClick={() => setSignup(true)}>
+              Create Account
+            </button>
+          </div>
+          <button
+            className={styles["btn"]}
+            style={{ width: "100%" }}
+            onClick={guestLogin}
+            type="button"
+          >
+            Guest login
           </button>
         </div>
       </form>
