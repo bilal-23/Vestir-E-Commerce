@@ -10,6 +10,7 @@ import { useFilter } from "../../context/FilterContext";
 
 const Navbar = () => {
   const searchInputRef = useRef<HTMLInputElement | null>(null)!;
+  const mobileSearchInputRef = useRef<HTMLInputElement | null>(null)!;
   const [search, setSearch] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const { cartItemsCount } = useUserData();
@@ -35,10 +36,17 @@ const Navbar = () => {
     setMenuActive((prev) => !prev);
   }, []);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: any, isMobile: boolean = false) => {
     e.preventDefault();
     if (!searchInputRef.current) return;
-    const searchTerm = searchInputRef.current.value;
+    if (!mobileSearchInputRef.current) return;
+    let searchTerm = "";
+    searchTerm = searchInputRef.current.value;
+    if (!isMobile) {
+      searchTerm = searchInputRef.current.value;
+    } else {
+      searchTerm = mobileSearchInputRef.current.value;
+    }
     searchProducts(searchTerm);
   };
 
@@ -51,14 +59,16 @@ const Navbar = () => {
         </div>
         <div className={styles["nav-icons"]}>
           <form className={styles["search-item"]} onSubmit={handleSubmit}>
-            <input
-              type="search"
-              className={`${
-                search ? styles["search"] : styles["search-hide"]
-              }  `}
-              ref={searchInputRef}
-              placeholder="Search Item"
-            />
+            <div className={styles["search-input-container"]}>
+              <input
+                type="search"
+                className={`${
+                  search ? styles["search"] : styles["search-hide"]
+                }  `}
+                ref={searchInputRef}
+                placeholder="Search Item"
+              />
+            </div>
             <SearchIcon
               className={styles["icon"]}
               onClick={() => {
@@ -91,6 +101,18 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+
+      <form
+        onSubmit={(e) => handleSubmit(e, true)}
+        className={`${styles["mobile-search"]}
+      ${search ? styles["mobile-search-active"] : ""} `}
+      >
+        <input
+          type="search"
+          ref={mobileSearchInputRef}
+          placeholder="Search Item"
+        />
+      </form>
     </nav>
   );
 };
