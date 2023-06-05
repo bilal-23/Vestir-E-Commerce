@@ -50,10 +50,13 @@ export const useAuth = () => {
             setLoading(true);
             const response = await axios.post(API_URLS.signup, payload);
             if (response.status === 201) {
-                toast.success("Account created successfully!");
+                toast.success("Account created successfully!", { toastId: "signup-success" });
+                return true;
             }
+
         } catch (err: any) {
             toast.error(err.response.data.message);
+            return false;
         }
         finally {
             setLoading(false);

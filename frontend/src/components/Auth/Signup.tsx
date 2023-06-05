@@ -2,6 +2,9 @@ import { validateEmail, validatePassword } from "../../helpers/validate";
 import styles from "./Auth.module.css";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
 
 interface Props {
   setSignup: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +12,10 @@ interface Props {
 
 const Signup: React.FC<Props> = ({ setSignup }) => {
   const { singup, login } = useAuth();
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirm_password: false,
+  });
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,7 +59,8 @@ const Signup: React.FC<Props> = ({ setSignup }) => {
       return;
     }
     // ALL ARE VALID, REGISTER USER
-    await singup(email.toLowerCase(), password, name);
+    const accountCreated = await singup(email.toLowerCase(), password, name);
+    if (!accountCreated) return;
     await login(email.toLowerCase(), password);
   };
   return (
@@ -87,25 +95,73 @@ const Signup: React.FC<Props> = ({ setSignup }) => {
           <label htmlFor="password" className="text-s text-300">
             Password
           </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="*********"
-            autoComplete="off"
-          />
+          <div className={styles["password-input"]}>
+            <input
+              type={`${showPassword.password ? "text" : "password"}`}
+              name="password"
+              id="password"
+              placeholder="*********"
+              autoComplete="off"
+              className={styles["password-input"]}
+            />
+            {!showPassword.password ? (
+              <VisibilityOffIcon
+                className={styles["password-icon"]}
+                type="button"
+                onClick={() => {
+                  setShowPassword((prev) => {
+                    return { ...prev, password: true };
+                  });
+                }}
+              />
+            ) : (
+              <VisibilityIcon
+                className={styles["password-icon"]}
+                type="button"
+                onClick={() => {
+                  setShowPassword((prev) => {
+                    return { ...prev, password: false };
+                  });
+                }}
+              />
+            )}
+          </div>
         </div>
         <div className={styles["form-group"]}>
-          <label htmlFor="password" className="text-s text-300">
+          <label htmlFor="confirm_password" className="text-s text-300">
             Confirm Password
           </label>
-          <input
-            type="password"
-            name="confirm_password"
-            id="password"
-            placeholder="*********"
-            autoComplete="off"
-          />
+          <div className={styles["password-input"]}>
+            <input
+              type={`${showPassword.confirm_password ? "text" : "password"}`}
+              name="confirm_password"
+              id="confirm_password"
+              placeholder="*********"
+              autoComplete="off"
+              className={styles["password-input"]}
+            />
+            {!showPassword.confirm_password ? (
+              <VisibilityOffIcon
+                className={styles["password-icon"]}
+                type="button"
+                onClick={() => {
+                  setShowPassword((prev) => {
+                    return { ...prev, confirm_password: true };
+                  });
+                }}
+              />
+            ) : (
+              <VisibilityIcon
+                className={styles["password-icon"]}
+                type="button"
+                onClick={() => {
+                  setShowPassword((prev) => {
+                    return { ...prev, confirm_password: false };
+                  });
+                }}
+              />
+            )}
+          </div>
         </div>
         <div className={styles["button-container"]}>
           <div className={styles["main-btn"]}>

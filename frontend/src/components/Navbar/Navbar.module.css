@@ -30,6 +30,8 @@
 .nav-icons {
   display: flex;
   gap: 2rem;
+  position: relative;
+  z-index: -1;
   align-items: center;
 }
 .icon {
@@ -140,4 +142,8 @@
   }
 }
 @media screen and (max-width: 37.5em) {
+  .profile-icon-link,
+  .wishlist-icon-link {
+    display: none;
+  }
 }

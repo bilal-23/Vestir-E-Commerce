@@ -72,7 +72,18 @@
   background-color: var(--blue);
   color: var(--white);
 }
-
+.password-input {
+  width: 100%;
+  position: relative;
+}
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  font-size: 2rem !important;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
 @media screen and (max-width: 600px) {
   .form {
     width: 90%;

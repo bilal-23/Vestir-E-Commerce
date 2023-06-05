@@ -75,7 +75,7 @@ const Navbar = () => {
               }}
             />
           </form>
-          <Link to="/profile">
+          <Link to="/profile" className={styles["profile-icon-link"]}>
             <PersonIcon
               className={styles["icon"]}
               onClick={() => {
@@ -84,7 +84,7 @@ const Navbar = () => {
               }}
             />
           </Link>
-          <Link to="/wishlist">
+          <Link to="/wishlist" className={styles["wishlist-icon-link"]}>
             <FavoriteIcon
               sx={{ fontSize: 15 }}
               className={styles["icon"]}

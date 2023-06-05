@@ -3,11 +3,14 @@ import styles from "./Auth.module.css";
 import { toast } from "react-toastify";
 import { validateEmail, validatePassword } from "../../helpers/validate";
 import { useAuth } from "../../hooks/useAuth";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 interface Props {
   setSignup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Login: React.FC<Props> = ({ setSignup }) => {
+  const [showPassword, setShowPassword] = React.useState(false);
   const { login } = useAuth();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,13 +64,33 @@ const Login: React.FC<Props> = ({ setSignup }) => {
           <label htmlFor="password" className="text-s text-300">
             Password
           </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="*********"
-            autoComplete="off"
-          />
+          <div className={styles["password-input"]}>
+            <input
+              type={`${showPassword ? "text" : "password"}`}
+              name="password"
+              id="password"
+              placeholder="*********"
+              autoComplete="off"
+              className={styles["password-input"]}
+            />
+            {!showPassword ? (
+              <VisibilityOffIcon
+                className={styles["password-icon"]}
+                type="button"
+                onClick={() => {
+                  setShowPassword(true);
+                }}
+              />
+            ) : (
+              <VisibilityIcon
+                className={styles["password-icon"]}
+                type="button"
+                onClick={() => {
+                  setShowPassword(false);
+                }}
+              />
+            )}
+          </div>
         </div>
         <div className={styles["button-container"]}>
           <div className={styles["main-btn"]}>
