@@ -37,7 +37,6 @@ export const Product: React.FC<ProductProps> = ({
   const { cartItems } = useUserData();
   const isInCart = cartItems?.find((item) => item._id === id);
   const navigate = useNavigate();
-  const productRating = Math.trunc(Number(rating));
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(hover: none)");

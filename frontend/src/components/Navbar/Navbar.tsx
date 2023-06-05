@@ -38,7 +38,7 @@ const Navbar = () => {
     setMenuActive((prev) => !prev);
   }, []);
 
-  const handleSubmit = (e: any, isMobile: boolean = false) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (searchTerm === "") {
       toast.error("Please enter a search term");
@@ -112,7 +112,7 @@ const Navbar = () => {
       </div>
 
       <form
-        onSubmit={(e) => handleSubmit(e, true)}
+        onSubmit={(e) => handleSubmit(e)}
         className={`${styles["mobile-search"]}
       ${search ? styles["mobile-search-active"] : ""} `}
       >
