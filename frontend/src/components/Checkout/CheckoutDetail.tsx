@@ -1,16 +1,29 @@
 import { useUserData } from "../../context/UserData";
 import CartItem from "./CartItem";
 import styles from "./CheckoutDetail.module.css";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import { toast } from "react-toastify";
 
 const CheckoutDetail = () => {
-  const { cartItems, cartTotal } = useUserData();
+  const { cartItems, cartTotal, selectedAddress } = useUserData();
   const { clearAllCartItems } = useCart();
-
+  const navigate = useNavigate();
   const formatPrice = (price: number) => {
     return price.toLocaleString("en-IN", {
       maximumFractionDigits: 2,
     });
+  };
+
+  console.log(selectedAddress);
+
+  const placeOrder = async () => {
+    if (!selectedAddress) {
+      toast.error("Please select an address to place order");
+      return;
+    }
+    navigate("/order-confirmed");
+    clearAllCartItems();
   };
 
   return (
@@ -39,12 +52,7 @@ const CheckoutDetail = () => {
             <p className="text-300 text-s">Rs {formatPrice(cartTotal)}</p>
           )}
         </div>
-        <button
-          className={styles["payment-btn"]}
-          onClick={() => {
-            clearAllCartItems();
-          }}
-        >
+        <button className={styles["payment-btn"]} onClick={placeOrder}>
           Place Order
         </button>
       </div>

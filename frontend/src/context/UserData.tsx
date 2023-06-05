@@ -51,6 +51,11 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
 
   useEffect(() => {
+    if (addresses && addresses.length > 0) setSelectedAddress(addresses[0]);
+    else setSelectedAddress(null);
+  }, [addresses]);
+
+  useEffect(() => {
     async function init() {
       try {
         setLoading(true);

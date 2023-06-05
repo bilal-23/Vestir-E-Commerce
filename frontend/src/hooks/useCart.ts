@@ -3,14 +3,13 @@ import { toast } from "react-toastify";
 import { API_URLS } from "../apiConfig";
 import { useUserData } from "../context/UserData";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { useLoading } from "../context/LoadingContext";
 
 export const useCart = () => {
     const { token } = useAuth();
     const { addToCart, decreaseQuantity, removeFromCart, clearCart } = useUserData();
     const header = { headers: { Authorization: `${token}` } }
-    const navigate = useNavigate();
+
     const { setLoading } = useLoading();
 
     const addItemToCart = async (productId: string) => {
@@ -73,7 +72,6 @@ export const useCart = () => {
             if (res.status === 200) {
                 // toast.success(res?.data?.message || "Cart cleared!");
                 clearCart();
-                navigate("/order-confirmed");
             }
         }
         catch (err: any) {
