@@ -17,7 +17,7 @@ import OrderConfirmed from "./pages/OrderConfirmed";
 
 function App() {
   const { loading } = useLoading();
-  const [brandLogoAnimation, setBrandLogoAnimation] = useState(true);
+  const [brandLogoAnimation, setBrandLogoAnimation] = useState(false);
 
   useEffect(() => {
     if (!brandLogoAnimation) return;
