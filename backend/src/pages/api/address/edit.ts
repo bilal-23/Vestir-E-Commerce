@@ -31,11 +31,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     const email = tokenData.email;
 
+    if (email === "test@test.com") {
+        return res.status(200).json({ message: "Address updated" })
+    }
     interface AddressUpdated extends Address {
         _id: string;
     }
     // get address data from request body
     const addressData: AddressUpdated = req.body.address;
+
 
     let client = null;
     try {
@@ -58,6 +62,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (addressIndex === -1) {
         return res.status(404).json({ message: "Address does not exist" });
     }
+
     // Find the address with the given id and update it
     await addresses.updateOne({ email }, { $set: { [`addresses.${addressIndex}`]: addressData } });
 

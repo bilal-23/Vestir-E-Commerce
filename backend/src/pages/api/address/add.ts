@@ -32,6 +32,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     const email = tokenData.email;
 
+    if (email === "test@test.com") {
+        return res.status(200).json({ message: "Address added", _id: "test" })
+    }
+
     // get address data from request body
     const addressData: Address = req.body.address;
 
@@ -52,6 +56,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!address) {
         return res.status(404).json({ message: "Address data not found" });
     }
+
     // Insert the addressData into the address array in the address document
     const _id = uuid();
     const id = await addresses.updateOne({ email }, { $push: { addresses: { _id: _id, ...addressData } } });

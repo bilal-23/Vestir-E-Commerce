@@ -31,6 +31,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     const email = tokenData.email;
 
+    if (email === "test@test.com") {
+        return res.status(200).json({ message: "Address deleted" })
+    }
+
     const addressId = req.query.addressId as string;
     if (!addressId) {
         return res.status(400).json({ message: "Address id is required" });
