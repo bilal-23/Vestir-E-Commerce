@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Filter.module.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PriceFilter from "./PriceFilter";
@@ -54,6 +54,26 @@ const Filters = () => {
         break;
     }
   }
+
+  useEffect(() => {
+    // Add a event listener to close the filter when clicked outside
+    const closeFilter = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(`.${styles["filters"]}`)) {
+        setOpenFilter({
+          price: false,
+          category: false,
+          size: false,
+          rating: false,
+        });
+      }
+    };
+    document.addEventListener("click", closeFilter);
+
+    return () => {
+      document.removeEventListener("click", closeFilter);
+    };
+  }, []);
 
   return (
     <div className={styles["container"]}>

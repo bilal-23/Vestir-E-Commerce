@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Categories.module.css";
 import { useData } from "../../context/DataContext";
+import { useFilter } from "../../context/FilterContext";
+import { CategoryFilter } from "@/context/ContextTypes";
 
 const Categories = () => {
   const { categories } = useData();
@@ -16,6 +18,7 @@ const Categories = () => {
                 key={category._id}
                 name={category.name}
                 image={category.image}
+                tag={category.tag}
                 link={`/products/?category=${category.tag}`}
               />
             );
@@ -31,10 +34,24 @@ interface Props {
   name: string;
   image: string;
   link: string;
+  tag: CategoryFilter;
 }
-const Category: React.FC<Props> = ({ name, image, link }) => {
+const Category: React.FC<Props> = ({ name, image, link, tag }) => {
+  const { filterByCategory } = useFilter();
+  const navigate = useNavigate();
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    filterByCategory(tag);
+    navigate("/products");
+  };
+
   return (
-    <Link to={link} className={`${styles["btn"]}  text-xs`}>
+    <Link
+      to={link}
+      className={`${styles["btn"]}  text-xs`}
+      onClick={handleClick}
+    >
       <div className={styles["card"]}>
         <img
           src={image}

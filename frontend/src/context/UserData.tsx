@@ -20,6 +20,7 @@ const UserDataContext = createContext<UserDataContextInterface>({
   cartTotal: 0,
   cartItemsCount: 0,
   addresses: [] || null,
+  selectedAddress: null,
 
   addToWishlist: () => {},
   removeFromWishlist: () => {},
@@ -33,6 +34,7 @@ const UserDataContext = createContext<UserDataContextInterface>({
   addAddress: () => {},
   removeAddress: () => {},
   updateAddress: () => {},
+  selectAddress: () => {},
 
   resetUserDataContext: () => {},
 });
@@ -46,6 +48,7 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [cart, setCart] = useState<CartType | null>(null);
   const [addresses, setAddresses] = useState<Address[] | null>(null);
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
 
   useEffect(() => {
     async function init() {
@@ -108,6 +111,7 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
       });
       const addresses = res.data.address.addresses;
       setAddresses(addresses);
+      setSelectedAddress(addresses[0]);
     } catch (err: any) {
       toast.error(
         err?.response?.data?.message ||
@@ -206,7 +210,9 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
     }
   };
 
-  const clearCart = () => {};
+  const clearCart = () => {
+    setCart({ items: [], total: 0, itemsCount: 0 });
+  };
 
   const resetContext = () => {
     setCart({ items: [] || null, total: 0, itemsCount: 0 } || null);
@@ -239,6 +245,14 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
     });
   };
 
+  const selectAddress = (addressId: string) => {
+    if (addresses === null) return;
+    const address = addresses.find((address) => address._id === addressId);
+    if (address) {
+      setSelectedAddress(address);
+    }
+  };
+
   const userDataContext = {
     wishlist,
     cartItems: cart?.items || null,
@@ -256,6 +270,8 @@ export const UserDataProvider: React.FC<ContextProviderProps> = ({
     addAddress,
     removeAddress,
     updateAddress,
+    selectedAddress,
+    selectAddress,
   };
 
   return (

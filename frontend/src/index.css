@@ -8,6 +8,7 @@
 :root {
   --primary: #353535;
   --blue: #384972;
+  --blue-light: rgba(139, 161, 220, 0.937);
   --blue-hover: #2c3e5a;
   --black: #000000;
   --dark: #161616;
@@ -30,6 +31,7 @@ body {
   background-color: #f5f5f5;
   overflow-x: hidden;
   width: 100vw;
+  /* animation: anim 10s infinite; */
 }
 a,
 a:visited,
@@ -96,5 +98,35 @@ a:link {
   .Toastify__toast-container--top-right {
     top: 1em !important;
     right: 1em !important;
+  }
+}
+
+@keyframes anim {
+  0% {
+    transform: scale(1.1) rotate(3600000deg);
+  }
+  10% {
+    transform: scale(1.2) rotate(360000deg);
+  }
+  20% {
+    transform: scale(0.5) rotate(360000deg);
+  }
+  30% {
+    transform: scale(2) rotate(360000deg);
+  }
+  40% {
+    transform: scale(1.8) rotate(36000deg);
+  }
+  50% {
+    transform: scale(2) rotate(300deg);
+  }
+  60% {
+    transform: scale(1.6) rotate(360deg);
+  }
+  99% {
+    transform: scale(0.2) rotate(3600deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
   }
 }

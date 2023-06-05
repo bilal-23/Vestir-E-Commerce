@@ -1,9 +1,12 @@
 import { useUserData } from "../../context/UserData";
 import CartItem from "./CartItem";
 import styles from "./CheckoutDetail.module.css";
+import { useCart } from "../../hooks/useCart";
 
 const CheckoutDetail = () => {
   const { cartItems, cartTotal } = useUserData();
+  const { clearAllCartItems } = useCart();
+
   const formatPrice = (price: number) => {
     return price.toLocaleString("en-IN", {
       maximumFractionDigits: 2,
@@ -36,7 +39,14 @@ const CheckoutDetail = () => {
             <p className="text-300 text-s">Rs {formatPrice(cartTotal)}</p>
           )}
         </div>
-        <button className={styles["payment-btn"]}>Proceed to payment</button>
+        <button
+          className={styles["payment-btn"]}
+          onClick={() => {
+            clearAllCartItems();
+          }}
+        >
+          Place Order
+        </button>
       </div>
     </section>
   );

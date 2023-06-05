@@ -6,8 +6,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import { useState } from "react";
 
 const Shipping = () => {
-  const { addresses } = useUserData();
+  const { addresses, selectAddress, selectedAddress } = useUserData();
   const [openForm, setOpenForm] = useState(false);
+
   return (
     <>
       {openForm && <AddressForm closeForm={() => setOpenForm(false)} />}
@@ -30,6 +31,8 @@ const Shipping = () => {
                   address={address.address}
                   country={address.country}
                   state={address.state}
+                  selected={selectedAddress?._id === address._id}
+                  onSelect={selectAddress}
                 />
               );
             })

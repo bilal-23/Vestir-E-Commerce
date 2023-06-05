@@ -13,10 +13,11 @@ import Loader from "./components/Loader/Loader";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { useState, useEffect } from "react";
 import BrandLogoAnimation from "./components/BrandLogoAnimation/BrandLogoAnimation";
+import OrderConfirmed from "./pages/OrderConfirmed";
 
 function App() {
   const { loading } = useLoading();
-  const [brandLogoAnimation, setBrandLogoAnimation] = useState(true);
+  const [brandLogoAnimation, setBrandLogoAnimation] = useState(false);
 
   useEffect(() => {
     if (!brandLogoAnimation) return;
@@ -74,6 +75,14 @@ function App() {
           element={
             <PrivateRoute reverseProtection={true}>
               <Auth />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/order-confirmed"
+          element={
+            <PrivateRoute>
+              <OrderConfirmed />
             </PrivateRoute>
           }
         />

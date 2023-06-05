@@ -46,6 +46,7 @@ export interface UserDataContextInterface {
     cartTotal: number | null;
     cartItemsCount: number | null;
     addresses: Address[] | null;
+    selectedAddress: Address | null;
 
     addToWishlist: (productId: string) => void;
     removeFromWishlist: (productId: string) => void;
@@ -59,6 +60,7 @@ export interface UserDataContextInterface {
     addAddress: (address: AddressForm, _id: string) => void;
     removeAddress: (addressId: string) => void;
     updateAddress: (address: Address) => void;
+    selectAddress: (addressId: string) => void;
 
     resetUserDataContext: () => void;
 }
@@ -116,6 +118,7 @@ export interface FilterContextInterface {
     filteredProducts: Product[] | null;
 
     // Actions
+    setSearchTerm: (searchTerm: string) => void;
     searchProducts: (searchTerm: string) => void;
     filterBySize: (size: SizesFilter) => void;
     filterByCategory: (category: CategoryFilter) => void;

@@ -3,16 +3,19 @@ import { useWishlist } from "../../hooks/useWishlist";
 import { useCart } from "../../hooks/useCart";
 import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Products.module.css";
-
+import StarIcon from "@mui/icons-material/Star";
 interface ProductProps {
   id: string;
   images: string[];
   title: string;
   trending: boolean;
   price: string;
+  size: string;
+  rating: string;
 }
 
 export const Product: React.FC<ProductProps> = ({
@@ -21,6 +24,8 @@ export const Product: React.FC<ProductProps> = ({
   images,
   trending,
   price,
+  size,
+  rating,
 }) => {
   const { wishlist } = useUserData();
   const [isHoverSupported, setIsHoverSupported] = useState(true);
@@ -32,6 +37,7 @@ export const Product: React.FC<ProductProps> = ({
   const { cartItems } = useUserData();
   const isInCart = cartItems?.find((item) => item._id === id);
   const navigate = useNavigate();
+  const productRating = Math.trunc(Number(rating));
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(hover: none)");
@@ -96,11 +102,25 @@ export const Product: React.FC<ProductProps> = ({
           />
         </Link>
         {trending && <p className={styles["trending"]}>Trending</p>}
-        <FavoriteBorderIcon
-          onClick={handleWishlistClick}
-          className={styles["wishlist"]}
-          sx={{ color: `${isWishlisted ? "red" : "black"}` }}
-        />
+        {isWishlisted ? (
+          <FavoriteIcon
+            onClick={handleWishlistClick}
+            className={styles["wishlist"]}
+            sx={{ color: "red" }}
+          />
+        ) : (
+          <FavoriteBorderIcon
+            onClick={handleWishlistClick}
+            className={styles["wishlist"]}
+            sx={{ color: "var(--blue)" }}
+          />
+        )}
+        <p className={`text-xs ${styles["size"]}`}>{size}</p>
+        <div className={styles["rating"]}>
+          <StarIcon className={styles["star"]} />
+          <p className={`text-xs`}>{rating}</p>
+        </div>
+
         {isLoading.wishlist && <Loader />}
         {isLoading.cart && <Loader />}
       </div>

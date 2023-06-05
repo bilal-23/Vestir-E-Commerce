@@ -2,6 +2,6 @@
 export interface Category {
     _id: string;
     name: string;
-    tag: string;
+    tag: "Men" | "Women" | "Accessories";
     image: string
 }

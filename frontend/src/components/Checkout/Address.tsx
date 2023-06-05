@@ -1,10 +1,12 @@
 import { useAddress } from "../../hooks/useAddress";
+import { useUserData } from "../../context/UserData";
 import AddressForm from "../Addresses/AddressForm";
 import styles from "./Address.module.css";
 import { useState } from "react";
 
 interface Props {
   selected?: boolean; //is checkout page
+  onSelect?: (id: string) => void;
   _id: string;
   firstName: string;
   lastName: string;
@@ -17,6 +19,7 @@ interface Props {
 }
 const Address: React.FC<Props> = ({
   selected,
+  onSelect,
   _id,
   firstName,
   lastName,
@@ -54,10 +57,18 @@ const Address: React.FC<Props> = ({
         />
       )}
       <address
+        onClick={() => {
+          if (onSelect) {
+            onSelect(_id);
+          }
+        }}
         className={`${styles["address"]} 
       ${styles["address-card"]} 
       ${selected && styles["selected"]} `}
       >
+        {selected && (
+          <p className={`text-xs ${styles["selected-tag"]}`}>Selected</p>
+        )}
         <div className={`${styles["name"]} text-s text-500`}>
           <span className={styles["first-name"]}>{firstName}</span>
           <span className={styles["last-name"]}>{lastName}</span>

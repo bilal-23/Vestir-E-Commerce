@@ -15,6 +15,7 @@ export const API_URLS = {
 
     getCart: `${ROOT_URL}/api/cart`,
     addToCart: `${ROOT_URL}/api/cart/add-to-cart`,
+    clearCart: `${ROOT_URL}/api/cart/delete`,
     decreaseQuantity: (productId: string) => `${ROOT_URL}/api/cart/delete/${productId}`,
     removeCartItem: (productId: string) => `${ROOT_URL}/api/cart/delete/${productId}/true`,
 

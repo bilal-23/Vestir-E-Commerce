@@ -17,6 +17,7 @@ const FilterContext = createContext<FilterContextInterface>({
   rating: "1",
   filteredProducts: [],
   sortBy: "default-sort",
+  setSearchTerm: () => {},
   searchProducts: () => {},
   filterBySize: () => {},
   filterByCategory: () => {},
@@ -60,6 +61,17 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
       }));
     }
   }, [products]);
+
+  useEffect(() => {
+    sort(sortBy);
+  }, [filteredProducts]);
+
+  const setSearchTerm = (searchTerm: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      searchTerm: searchTerm,
+    }));
+  };
 
   const searchProducts = (searchTerm: string) => {
     if (!products) return;
@@ -278,6 +290,7 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
     rating,
     filteredProducts,
     sortBy,
+    setSearchTerm,
     searchProducts,
     filterBySize,
     filterByCategory,

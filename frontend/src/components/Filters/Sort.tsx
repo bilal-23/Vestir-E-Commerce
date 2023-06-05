@@ -18,8 +18,9 @@ const Sort = () => {
           className={`text-s text-300 ${styles["sort-select"]}`}
           value={sortBy}
           onChange={handleChange}
+          placeholder="Sort By"
         >
-          <option value="defaut-sort">Default</option>
+          <option hidden>Default</option>
           <option value="trending">Trending</option>
           <option value="price-low-to-high">Price: Low to High</option>
           <option value="price-high-to-low">Price: High to Low</option>

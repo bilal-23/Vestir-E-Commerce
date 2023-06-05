@@ -3,10 +3,12 @@ import styles from "./Navbar.module.css";
 import PersonIcon from "@mui/icons-material/Person";
 import CartIcon from "../../assets/cart.svg";
 import SearchIcon from "@mui/icons-material/Search";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useUserData } from "../../context/UserData";
 import { useFilter } from "../../context/FilterContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const searchInputRef = useRef<HTMLInputElement | null>(null)!;
@@ -14,7 +16,7 @@ const Navbar = () => {
   const [search, setSearch] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const { cartItemsCount } = useUserData();
-  const { searchProducts } = useFilter();
+  const { searchProducts, searchTerm, setSearchTerm } = useFilter();
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -38,14 +40,9 @@ const Navbar = () => {
 
   const handleSubmit = (e: any, isMobile: boolean = false) => {
     e.preventDefault();
-    if (!searchInputRef.current) return;
-    if (!mobileSearchInputRef.current) return;
-    let searchTerm = "";
-    searchTerm = searchInputRef.current.value;
-    if (!isMobile) {
-      searchTerm = searchInputRef.current.value;
-    } else {
-      searchTerm = mobileSearchInputRef.current.value;
+    if (searchTerm === "") {
+      toast.error("Please enter a search term");
+      return;
     }
     searchProducts(searchTerm);
   };
@@ -62,6 +59,8 @@ const Navbar = () => {
             <div className={styles["search-input-container"]}>
               <input
                 type="search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className={`${
                   search ? styles["search"] : styles["search-hide"]
                 }  `}
@@ -78,6 +77,16 @@ const Navbar = () => {
           </form>
           <Link to="/profile">
             <PersonIcon
+              className={styles["icon"]}
+              onClick={() => {
+                if (!menuActive) return;
+                toggleMenu();
+              }}
+            />
+          </Link>
+          <Link to="/wishlist">
+            <FavoriteIcon
+              sx={{ fontSize: 15 }}
               className={styles["icon"]}
               onClick={() => {
                 if (!menuActive) return;
@@ -108,6 +117,8 @@ const Navbar = () => {
       ${search ? styles["mobile-search-active"] : ""} `}
       >
         <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           type="search"
           ref={mobileSearchInputRef}
           placeholder="Search Item"

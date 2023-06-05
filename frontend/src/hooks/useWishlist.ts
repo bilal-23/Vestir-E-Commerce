@@ -10,7 +10,7 @@ export const useWishlist = () => {
 
     const addItemToWishlist = async (productId: string) => {
         if (!token) {
-            toast.error("Please login to add item to wishlist", { toastId: "errorAddWishlist" });
+            toast.error("Please login to add product to wishlist", { toastId: "errorAddWishlist" });
             return;
         }
         // Make Api call to add item to wishlist
@@ -21,7 +21,7 @@ export const useWishlist = () => {
                 }
             });
             if (res.status === 200) {
-                toast.success("Item added to wishlist");
+                toast.success("Product added to wishlist");
                 addToWishlist(productId);
             }
         }
@@ -32,7 +32,7 @@ export const useWishlist = () => {
 
     const removeItemFromWishlist = async (productId: string) => {
         if (!token) {
-            toast.error("Please login to add item to wishlist", { toastId: "errorAddWishlist" });
+            toast.error("Please login to add product to wishlist", { toastId: "errorAddWishlist" });
             return;
         }
         // Make Api call to remove item from wishlist
@@ -43,7 +43,7 @@ export const useWishlist = () => {
                 }
             });
             if (res.status === 200) {
-                toast.success("Item removed from wishlist");
+                toast.success("Product removed from wishlist");
                 removeFromWishlist(productId);
             }
         }

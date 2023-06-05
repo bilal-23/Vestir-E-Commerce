@@ -19,6 +19,8 @@ const Products: React.FC<Props> = ({ products }) => {
               title={product.title}
               trending={product.trending}
               price={product.price}
+              size={product.size}
+              rating={product.rating}
             />
           );
         })}
