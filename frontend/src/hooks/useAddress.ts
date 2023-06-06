@@ -22,6 +22,7 @@ export const useAddress = () => {
             const res = await axios.post(API_URLS.postAddress, { address: address }, { headers });
             if (res.status === 200) {
                 const _id = res.data._id;
+                console.log(_id);
                 addAddress(address, _id);
                 toast.success("Address added successfully");
                 return true;

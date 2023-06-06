@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import { NavLink, useLocation } from "react-router-dom";
 import { useFilter } from "../../context/FilterContext";
+import { useCart } from "../../hooks/useCart";
 
 interface Props {
   showMenu: boolean;
@@ -25,6 +26,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
   const [hovered, setHovered] = useState(0);
   const location = useLocation();
   const { resetUserDataContext } = useUserData();
+  const { clearAllCartItems } = useCart();
 
   useEffect(() => {
     handlerOverlayColor();
@@ -48,6 +50,7 @@ const SideMenu: React.FC<Props> = ({ showMenu, toggleMenu }) => {
   const handleLogout = () => {
     logout();
     resetUserDataContext();
+    clearAllCartItems();
     clearFilters();
     toast.success("Logged out successfully");
   };
