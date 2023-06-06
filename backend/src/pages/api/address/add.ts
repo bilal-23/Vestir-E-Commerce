@@ -33,7 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const email = tokenData.email;
 
     if (email === "test@test.com") {
-        return res.status(200).json({ message: "Address added", _id: "test" })
+        return res.status(200).json({ message: "Address added", _id: uuid() })
     }
 
     // get address data from request body
