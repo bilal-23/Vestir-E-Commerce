@@ -45,7 +45,6 @@ JWT_SECRET=[a very long random string]
 - Wishlist managment
 - Address Managment
 - Checkout page
-- Payment gateway integration
 - Authentication:
   - User Signup
   - User Login
